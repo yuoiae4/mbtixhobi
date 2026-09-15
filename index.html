@@ -31,6 +31,7 @@ h2{font-size:24px;line-height:1.45;margin:8px 0 12px}.sub{color:var(--muted);lin
 .primary,.secondary{width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:850;cursor:pointer}
 .primary{background:var(--accent);color:#fff}.primary:hover{background:#6245dc}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
 .progress-wrap{display:flex;align-items:center;gap:12px;margin-bottom:23px}.progress{height:7px;background:#ece8ee;border-radius:99px;flex:1;overflow:hidden}.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}.count{font-size:11px;color:var(--muted);font-weight:800;white-space:nowrap}
+.quiz-back{margin-top:15px;width:100%;border:0;background:transparent;color:#8a838d;font-size:12px;font-weight:750;cursor:pointer;padding:8px}.quiz-back:hover{color:var(--accent)}
 .question{font-size:25px;margin:0 0 19px}.answers{display:grid;gap:10px}.answer{text-align:left;border:1px solid var(--line);background:#fff;border-radius:17px;padding:16px 17px;cursor:pointer;transition:.16s}.answer:hover{border-color:#b9a9f5;background:#fcfaff;transform:translateY(-1px)}.answer b{font-size:15px}.answer small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:5px}
 .result-kicker{color:var(--accent);font-size:13px;font-weight:850}.result-title{font-size:34px;line-height:1.2;margin:5px 0 9px}.result-lead{color:#5f5962;line-height:1.85;margin:0}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0}.tag{background:var(--soft);color:#654bd0;border-radius:99px;padding:7px 10px;font-size:11px;font-weight:800}
@@ -72,6 +73,7 @@ footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
  <div class="eyebrow">YOUR PREFERENCE</div>
  <h2 class="question" id="question"></h2>
  <div class="answers" id="answers"></div>
+ <button class="quiz-back" id="backBtn" onclick="goBack()">← ひとつ前の質問に戻る</button>
 </section>
 
 <section id="resultCard" class="card hidden">
@@ -82,7 +84,7 @@ footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
 
  <div class="section">
   <h3>あなたに合いそうな趣味</h3>
-  <p class="section-desc">MBTI傾向と今回の回答から、相性が高そうな順に並べています。</p>
+  <p class="section-desc">MBTI傾向と今回の回答から、定番から少し変わった趣味まで、相性が高そうな順に並べています。</p>
   <div class="hobbies" id="hobbies"></div>
  </div>
 
@@ -138,14 +140,46 @@ const hobbies=[
  ["美術館巡り","静か・発見・文化",["I","N"],"自分のペースで作品を眺め、感性を刺激できる。","まず1展示だけでもOK"],
  ["キャンプ","自然・体験・非日常",["E","S"],"日常から少し離れて、体験そのものを楽しめる。","デイキャンプから試せる"],
  ["ゲーム","没頭・交流・達成",["I","T"],"一人でも誰かとでも遊べ、ジャンルの幅も広い。","短時間の作品から試せる"],
- ["DIY","創作・実用・達成",["S","T"],"自分で作ったものが生活で使えるのが魅力。","小さな工作から試せる"]
+ ["DIY","創作・実用・達成",["S","T"],"自分で作ったものが生活で使えるのが魅力。","小さな工作から試せる"],
+ ["陶芸","創作・手作業・没頭",["I","S","F"],"土に触れながら形を作る、デジタルとは違う手触りのある趣味。","1日体験教室から試せる"],
+ ["書道・筆文字","静か・表現・上達",["I","S","F"],"文字の美しさを追いながら、集中する時間も楽しめる。","道具を少なく始められる"],
+ ["コーヒー・紅茶","探究・感覚・日常",["I","S","N"],"豆や茶葉、淹れ方の違いを試すほど奥深くなる。","いつもの一杯から比べてみる"],
+ ["パン・お菓子作り","創作・実用・実験",["S","F","T"],"レシピを再現するだけでなく、配合を変える実験もできる。","簡単なレシピから試せる"],
+ ["釣り","自然・集中・体験",["I","S"],"静かに待つ時間と、魚がかかった瞬間の緊張感を両方楽しめる。","管理釣り場から試せる"],
+ ["野鳥観察","自然・発見・収集",["I","N","S"],"身近な公園でも鳥を探すだけで、いつもの景色が少し変わる。","双眼鏡なしでも始められる"],
+ ["星空観察","静か・自然・探究",["I","N"],"夜空を眺めながら星や宇宙について知る、ゆったりした趣味。","晴れた夜に外へ出るだけでもOK"],
+ ["鉱物・化石集め","収集・探究・発見",["I","N","S"],"石の見た目から産地や成分まで調べ始めると奥深い。","まずは1個から集められる"],
+ ["御朱印・寺社巡り","外出・文化・収集",["E","S","N"],"街歩きと歴史・建築を組み合わせて楽しめる。","近所の寺社から始められる"],
+ ["博物館巡り","知識・発見・外出",["I","N","S"],"科学・歴史・民俗など、興味の入口を見つけやすい。","気になる展示だけでも楽しめる"],
+ ["美術・映画鑑賞","感性・発見・一人",["I","N","F"],"作品を味わったり感想を考えたりするだけでも楽しめる。","1本・1作品から試せる"],
+ ["映画制作・映像撮影","創作・表現・技術",["E","N","T"],"撮影・構成・編集まで、自分で作品を組み立てられる。","スマホ撮影から始められる"],
+ ["ブログ・エッセイ","一人・表現・知識",["I","N","F"],"好きなことを文章にして整理すると、新しい興味も見つかる。","非公開メモからでも始められる"],
+ ["プログラミング","PC・創作・攻略",["I","N","T"],"コードで仕組みを作り、試行錯誤しながら完成させる楽しさがある。","小さなWeb作品から試せる"],
+ ["3Dモデリング","PC・創作・技術",["I","N","T"],"立体を設計して形にする、制作好き向けのデジタル趣味。","無料ソフトから試せる"],
+ ["電子工作","創作・実験・技術",["I","S","T"],"部品を組み合わせて実際に動くものを作る面白さがある。","小さなキットから試せる"],
+ ["謎解き・脱出ゲーム","攻略・発見・交流",["E","N","T"],"情報を組み合わせて答えを見つける、短時間でも没頭できる趣味。","1回参加するだけでもOK"],
+ ["将棋・囲碁","戦略・上達・対戦",["I","T","N"],"考えるほど奥が深く、棋譜や成績から成長も追いやすい。","アプリで無料対局から試せる"],
+ ["カードゲーム","戦略・交流・収集",["E","T","N"],"対戦・デッキ構築・カード収集など、楽しみ方を広げやすい。","初心者向けルールから試せる"],
+ ["模型・プラモデル","制作・収集・没頭",["I","S","T"],"組み立てや塗装に集中し、完成品を眺めるところまで楽しめる。","小さなキットから始められる"],
+ ["レザークラフト","手作業・創作・実用",["I","S","T"],"革を加工して財布や小物など、自分で使えるものを作れる。","簡単な小物キットから試せる"],
+ ["編み物・刺繍","手作業・癒やし・創作",["I","F","S"],"手を動かすリズムと、少しずつ形になっていく過程を楽しめる。","小さな作品から始められる"],
+ ["ダンス","運動・表現・交流",["E","F","S"],"音楽に合わせて体を動かし、運動と表現の両方を楽しめる。","動画を見ながら一人でも試せる"],
+ ["サイクリング","外出・運動・探索",["E","S","I"],"移動そのものが遊びになり、知らない道を探索できる。","近所を30分走るところから"],
+ ["地図・街歩き","探索・発見・外出",["I","N","S"],"地図を眺めたり知らない道を歩いたりして、身近な場所を再発見する。","近所の知らない道から試せる"],
+ ["ボルダリング","運動・攻略・達成",["E","T","S"],"体を使いながらルート攻略を考える、ゲーム感覚の運動。","初心者体験から試せる"],
+ ["料理研究・食べ比べ","探究・発見・実用",["S","N","F"],"同じ料理や飲み物を比べて、違いを探すだけでも奥深い。","身近な商品から試せる"],
+ ["香水・香り探究","感覚・発見・収集",["I","N","F"],"香りの違いを比べながら、自分の好みを掘り下げられる。","試香から気軽に試せる"],
+ ["アクアリウム","自然・観察・創作",["I","S","F"],"水槽の環境を整え、生き物や水草の変化を観察する趣味。","小型水槽から検討できる"],
+ ["家庭菜園","自然・実用・継続",["S","F","N"],"育てる・収穫するまでの変化が分かりやすく、食卓にもつながる。","ベランダの鉢から始められる"],
+ ["手帳・ノート術","整理・創作・継続",["I","J","S"],"予定だけでなく、記録やアイデア整理そのものを楽しめる。","紙1冊から始められる"],
+ ["パズル・数独","一人・攻略・低コスト",["I","T","N"],"静かに考え続けて答えにたどり着く、短時間でも満足感のある趣味。","無料問題から試せる"]
 ];
 
-let idx=0,score={A:0,B:0,C:0},trait={I:0,E:0,N:0,S:0,T:0,F:0};
+let idx=0,score={A:0,B:0,C:0},trait={I:0,E:0,N:0,S:0,T:0,F:0},history=[];
 const $=id=>document.getElementById(id);
 
 function startQuiz(){
- $("startCard").classList.add("hidden");$("quizCard").classList.remove("hidden");idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0};showQuestion();window.scrollTo({top:0,behavior:"smooth"});
+ $("startCard").classList.add("hidden");$("quizCard").classList.remove("hidden");idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0};history=[];showQuestion();window.scrollTo({top:0,behavior:"smooth"});
 }
 function showQuestion(){
  const x=questions[idx];$("count").textContent=`${idx+1} / ${questions.length}`;$("bar").style.width=(idx/questions.length*100)+"%";$("question").textContent=x.q;$("answers").innerHTML="";
@@ -156,8 +190,21 @@ function answer(letter,n){
  if(n===0){trait.I++;trait.N++;trait.T++}
  if(n===1){trait.E++;trait.S++;trait.F++}
  if(n===2){trait.N++;trait.F++}
+ history.push({letter,n});
  idx++;
  if(idx<questions.length)showQuestion();else showResult();
+}
+function goBack(){
+ if(idx===0)return;
+ idx--;
+ const last=history.pop();
+ if(!last)return;
+ score[last.letter]--;
+ if(last.n===0){trait.I--;trait.N--;trait.T--}
+ if(last.n===1){trait.E--;trait.S--;trait.F--}
+ if(last.n===2){trait.N--;trait.F--}
+ showQuestion();
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 function showResult(){
  $("quizCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
@@ -176,7 +223,7 @@ function showResult(){
   if(score.B>score.A&&h[1].includes("交流"))s+=7;
   if(score.C>score.A&&h[1].includes("発見"))s+=7;
   return {h,s,i};
- }).sort((a,b)=>b.s-a.s).slice(0,5);
+ }).sort((a,b)=>b.s-a.s || Math.random()-.5).slice(0,5);
 
  $("hobbies").innerHTML=ranked.map((r,i)=>`<article class="hobby"><div class="hobby-head"><div><span class="rank">#${i+1}</span> <span class="hobby-name">${r.h[0]}</span></div><span class="match">${Math.min(99,r.s)}%</span></div><div class="hobby-meta">${r.h[1].split("・").map(x=>`<span class="mini">${x}</span>`).join("")}</div><p>${r.h[3]}</p></article>`).join("");
 
