@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="今ある趣味、ちょっと飽きてない？MBTIとあなたの好みから、次に試したい新しい趣味を探す無料診断。登録不要。">
+<meta name="theme-color" content="#f8f6ff">
+<title>MBTI 趣味診断 | 今ある趣味、飽きてない？</title>
+<style>
+:root{
+ --bg:#faf9f7;--paper:#fff;--ink:#27232b;--muted:#77727b;--line:#e9e4eb;
+ --accent:#7457e8;--accent2:#9b83ef;--soft:#f3efff;--soft2:#fff5f8;
+ --shadow:0 18px 55px rgba(45,35,65,.08);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:
+ radial-gradient(circle at 8% 0,#eeeaff 0,transparent 29%),
+ radial-gradient(circle at 100% 8%,#fff0f4 0,transparent 25%),var(--bg);
+ font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",sans-serif}
+button{font:inherit}.wrap{max-width:780px;margin:auto;padding:0 18px 70px}
+.hero{text-align:center;padding:54px 10px 30px}
+.badge{display:inline-flex;gap:7px;align-items:center;padding:7px 12px;border:1px solid #ded5ff;background:#fffaff;color:#674bd3;border-radius:99px;font-size:12px;font-weight:800}
+h1{font-size:clamp(37px,8vw,64px);line-height:1.03;letter-spacing:-.055em;margin:19px 0 16px}
+h1 span{color:var(--accent)}.lead{max-width:610px;margin:auto;color:#625d65;font-size:16px;line-height:1.9}
+.hero-note{margin-top:18px;color:#8a858d;font-size:12px}
+.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:27px;box-shadow:var(--shadow);padding:27px;margin-top:17px}
+.start-card{text-align:center}.eyebrow{font-size:12px;color:var(--accent);font-weight:850;letter-spacing:.08em}
+h2{font-size:24px;line-height:1.45;margin:8px 0 12px}.sub{color:var(--muted);line-height:1.75;font-size:14px}
+.flow{display:flex;align-items:center;justify-content:center;gap:8px;margin:19px 0 3px;color:#77717b;font-size:11px;font-weight:750}.flow-step{padding:8px 10px;background:#faf8fc;border:1px solid var(--line);border-radius:12px}.flow-arrow{color:#b1aab4;font-size:13px}.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.benefit{padding:15px 10px;border:1px solid var(--line);border-radius:17px;background:#fff}.benefit b{display:block;font-size:13px}.benefit span{font-size:11px;color:var(--muted);display:block;margin-top:4px}
+.primary,.secondary{width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:850;cursor:pointer}
+.primary{background:var(--accent);color:#fff}.primary:hover{background:#6245dc}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.progress-wrap{display:flex;align-items:center;gap:12px;margin-bottom:23px}.progress{height:7px;background:#ece8ee;border-radius:99px;flex:1;overflow:hidden}.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}.count{font-size:11px;color:var(--muted);font-weight:800;white-space:nowrap}
+.question{font-size:25px;margin:0 0 19px}.answers{display:grid;gap:10px}.answer{text-align:left;border:1px solid var(--line);background:#fff;border-radius:17px;padding:16px 17px;cursor:pointer;transition:.16s}.answer:hover{border-color:#b9a9f5;background:#fcfaff;transform:translateY(-1px)}.answer b{font-size:15px}.answer small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:5px}
+.result-kicker{color:var(--accent);font-size:13px;font-weight:850}.result-title{font-size:34px;line-height:1.2;margin:5px 0 9px}.result-lead{color:#5f5962;line-height:1.85;margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0}.tag{background:var(--soft);color:#654bd0;border-radius:99px;padding:7px 10px;font-size:11px;font-weight:800}
+.section{margin-top:27px}.section h3{font-size:18px;margin:0 0 10px}.section-desc{color:var(--muted);font-size:12px;line-height:1.65;margin:-3px 0 12px}
+.hobbies{display:grid;gap:10px}.hobby{border:1px solid var(--line);border-radius:18px;padding:17px;background:#fff}.hobby-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.rank{color:#8e8791;font-size:11px;font-weight:800}.hobby-name{font-size:17px;font-weight:900}.match{color:var(--accent);font-weight:900;font-size:13px}.hobby-meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.mini{font-size:10px;color:#746c79;background:#f6f3f7;padding:5px 8px;border-radius:99px}.hobby p{font-size:13px;color:#67616a;line-height:1.7;margin:7px 0 0}
+.next{background:linear-gradient(135deg,#faf7ff,#fff8fb);border:1px solid #e5dcfb;border-radius:20px;padding:18px}.next strong{display:block;font-size:16px;margin-bottom:5px}.next p{margin:0;color:#66606a;font-size:13px;line-height:1.7}
+.discovery{display:grid;grid-template-columns:1fr 1fr;gap:10px}.discovery div{padding:14px;border:1px solid var(--line);border-radius:16px}.discovery b{font-size:13px}.discovery span{display:block;color:var(--muted);font-size:11px;line-height:1.55;margin-top:5px}
+.tip{padding:16px;border-radius:17px;background:#fbf9ff;border:1px solid #e7e0ff;color:#625c68;font-size:13px;line-height:1.75}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.note{text-align:center;color:#99939b;font-size:11px;line-height:1.7;margin:15px 0 0}
+footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
+.hidden{display:none!important}
+@media(max-width:560px){.benefits{grid-template-columns:1fr}.discovery{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.card{padding:21px}.hero{padding-top:35px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="hero">
+ <div class="badge">MBTI × 趣味探し</div>
+ <h1>今ある趣味、<span>飽きてない？</span></h1>
+ <p class="lead">「最近ちょっとマンネリかも」<br>「何か新しいことを始めたい」<br>そんなときに、MBTIとあなたの好みから<strong>次に試したい趣味</strong>を探します。</p>
+ <div class="hero-note">趣味を変える必要はない。選択肢を増やそう。</div>
+</section>
+
+<section id="startCard" class="card start-card">
+ <div class="eyebrow">NEW HOBBY FINDER</div>
+ <h2>次の「ちょっとやってみたい」を探そう</h2>
+ <p class="sub">「一人で楽しみたい」「外に出たい」「何か作りたい」など、あなたの好みを8問で整理。<br>MBTIだけではなく、今の気分や楽しみ方から、相性のよさそうな趣味を5つ提案します。</p>
+ <div class="flow"><span class="flow-step">8問に答える</span><span class="flow-arrow">→</span><span class="flow-step">趣味タイプをチェック</span><span class="flow-arrow">→</span><span class="flow-step">5つの候補を見る</span></div>
+ <div class="benefits">
+  <div class="benefit"><b>8問</b><span>サクッと診断</span></div>
+  <div class="benefit"><b>5候補</b><span>新しい選択肢を発見</span></div>
+  <div class="benefit"><b>登録不要</b><span>その場で結果</span></div>
+ </div>
+ <button class="primary" onclick="startQuiz()">新しい趣味を探す →</button>
+</section>
+
+<section id="quizCard" class="card hidden">
+ <div class="progress-wrap"><div class="progress"><i id="bar"></i></div><div class="count" id="count"></div></div>
+ <div class="eyebrow">YOUR PREFERENCE</div>
+ <h2 class="question" id="question"></h2>
+ <div class="answers" id="answers"></div>
+</section>
+
+<section id="resultCard" class="card hidden">
+ <div class="result-kicker" id="resultType"></div>
+ <h2 class="result-title" id="resultTitle"></h2>
+ <p class="result-lead" id="resultText"></p>
+ <div class="tags" id="tags"></div>
+
+ <div class="section">
+  <h3>あなたに合いそうな趣味</h3>
+  <p class="section-desc">MBTI傾向と今回の回答から、相性が高そうな順に並べています。</p>
+  <div class="hobbies" id="hobbies"></div>
+ </div>
+
+ <div class="section">
+  <h3>まず試すなら</h3>
+  <div class="next" id="next"></div>
+ </div>
+
+ <div class="section">
+  <h3>今の趣味から広げるなら</h3>
+  <div class="discovery" id="discovery"></div>
+ </div>
+
+ <div class="section">
+  <h3>続けるコツ</h3>
+  <div class="tip" id="tip"></div>
+ </div>
+
+ <div class="actions">
+  <button class="primary" onclick="shareResult()">結果をシェア</button>
+  <button class="secondary" onclick="location.reload()">もう一度診断</button>
+ </div>
+ <p class="note">この診断は「向いている趣味」を断定するものではありません。<br>新しい選択肢を見つけるためのきっかけとして楽しんでください。</p>
+</section>
+<footer>MBTI 趣味診断</footer>
+</main>
+
+<script>
+const questions=[
+ {q:"新しい趣味を始めるなら？",a:[["A","一人でじっくり楽しめるもの","自分のペースで深くハマりたい"],["B","誰かと一緒に楽しめるもの","人との時間も含めて楽しみたい"],["C","どちらでも。内容次第","面白そうならスタイルは気にしない"]]},
+ {q:"休日に一番ほしい時間は？",a:[["A","静かに没頭する時間","周りを気にせず集中したい"],["B","外に出て刺激を受ける時間","新しい場所や人に触れたい"],["C","その日の気分で決める","予定に縛られず自由に過ごしたい"]]},
+ {q:"趣味に一番求めたいのは？",a:[["A","上達・達成感","できることが増えるのが楽しい"],["B","癒やし・気分転換","心が軽くなる時間がほしい"],["C","発見・刺激","知らない世界を見てみたい"]]},
+ {q:"ちょっと惹かれるのは？",a:[["A","何かを作る","絵・料理・DIY・動画など"],["B","体を動かす","散歩・スポーツ・ダンスなど"],["C","知識を深める","読書・語学・歴史・科学など"]]},
+ {q:"趣味に使う時間は？",a:[["A","毎日少しずつ","短時間でも積み上げたい"],["B","休日にまとめて","まとまった時間で楽しみたい"],["C","気が向いたとき","やりたいときにやりたい"]]},
+ {q:"始める前に一番気になるのは？",a:[["A","費用","なるべく低コストで試したい"],["B","難しさ","初心者でもできるか気になる"],["C","場所・環境","家や近所でできるか気になる"]]},
+ {q:"「楽しかった！」と感じる瞬間は？",a:[["A","自分の記録を更新したとき","昨日の自分より成長した"],["B","誰かと楽しい時間を過ごしたとき","一緒に楽しめた"],["C","知らないことを知ったとき","世界が少し広がった"]]},
+ {q:"今のあなたに近いのは？",a:[["A","今ある趣味に少しマンネリを感じる","似た方向で新しい刺激がほしい"],["B","今ある趣味とは違うことをしたい","未知のジャンルを試したい"],["C","そもそも趣味の候補が思いつかない","まずは選択肢をたくさん知りたい"]]}
+];
+
+const hobbies=[
+ ["読書","一人・低コスト・知識",["I","N"],"静かな時間に没頭しながら、知らない世界を広げられる。","今夜からでも始めやすい"],
+ ["写真散歩","一人・外出・発見",["I","E"],"散歩に「探す」という目的が加わり、道具が少なくても始めやすい。","スマホだけで試せる"],
+ ["料理","創作・実用・上達",["S","F"],"作ったものが成果として残るので、上達も実感しやすい。","家にある材料から試せる"],
+ ["ボードゲーム","交流・戦略・発見",["E","T"],"人と遊びながら考える楽しさを味わえる。","友人との1回から試せる"],
+ ["筋トレ","上達・習慣・記録",["S","T"],"小さな成長を数字で確認しやすく、習慣にもつなげやすい。","短時間から始められる"],
+ ["ハイキング","外出・自然・体験",["E","S"],"景色と運動をまとめて楽しめ、日常から少し離れられる。","近場のコースから試せる"],
+ ["イラスト","一人・創作・上達",["I","N"],"頭の中のイメージを形にする、没頭型の趣味。","紙とペンからでも始められる"],
+ ["楽器","練習・表現・達成",["I","F"],"練習するほどできることが増え、自分なりの表現にもつながる。","無料教材から試せる"],
+ ["語学","知識・継続・交流",["N","J"],"積み上げが実感しやすく、旅行や交流など別の楽しみにも広げられる。","1日10分から試せる"],
+ ["ガーデニング","癒やし・自然・継続",["S","F"],"植物の変化を眺めたり世話したりすること自体が気分転換になる。","小さな鉢から試せる"],
+ ["動画編集","創作・PC・スキル",["N","T"],"作品を作りながら、実用的なスキルも磨ける。","スマホ編集からでも試せる"],
+ ["カフェ巡り","外出・発見・気分転換",["E","F"],"新しい店を探すだけでも、小さな冒険になる。","近所の1店から試せる"],
+ ["美術館巡り","静か・発見・文化",["I","N"],"自分のペースで作品を眺め、感性を刺激できる。","まず1展示だけでもOK"],
+ ["キャンプ","自然・体験・非日常",["E","S"],"日常から少し離れて、体験そのものを楽しめる。","デイキャンプから試せる"],
+ ["ゲーム","没頭・交流・達成",["I","T"],"一人でも誰かとでも遊べ、ジャンルの幅も広い。","短時間の作品から試せる"],
+ ["DIY","創作・実用・達成",["S","T"],"自分で作ったものが生活で使えるのが魅力。","小さな工作から試せる"]
+];
+
+let idx=0,score={A:0,B:0,C:0},trait={I:0,E:0,N:0,S:0,T:0,F:0};
+const $=id=>document.getElementById(id);
+
+function startQuiz(){
+ $("startCard").classList.add("hidden");$("quizCard").classList.remove("hidden");idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0};showQuestion();window.scrollTo({top:0,behavior:"smooth"});
+}
+function showQuestion(){
+ const x=questions[idx];$("count").textContent=`${idx+1} / ${questions.length}`;$("bar").style.width=(idx/questions.length*100)+"%";$("question").textContent=x.q;$("answers").innerHTML="";
+ x.a.forEach((a,n)=>{const b=document.createElement("button");b.className="answer";b.innerHTML=`<b>${a[0]}　${a[1]}</b><small>${a[2]}</small>`;b.onclick=()=>answer(a[0],n);$("answers").appendChild(b)});
+}
+function answer(letter,n){
+ score[letter]++;
+ if(n===0){trait.I++;trait.N++;trait.T++}
+ if(n===1){trait.E++;trait.S++;trait.F++}
+ if(n===2){trait.N++;trait.F++}
+ idx++;
+ if(idx<questions.length)showQuestion();else showResult();
+}
+function showResult(){
+ $("quizCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
+ const ie=trait.I>=trait.E?"I":"E",ns=trait.N>=trait.S?"N":"S",tf=trait.T>=trait.F?"T":"F",jp=score.A>=score.C?"J":"P";
+ const type=ie+ns+tf+jp;
+ const titles={INTJ:"静かな探究者",INTP:"自由な研究者",ENTJ:"挑戦する開拓者",ENTP:"新しい刺激のハンター",INFJ:"世界を深く味わう人",INFP:"感性で探すクリエイター",ENFJ:"人と楽しむプロデューサー",ENFP:"好奇心の冒険家",ISTJ:"コツコツ極める職人",ISFJ:"暮らしを楽しむ人",ESTJ:"行動派チャレンジャー",ESFJ:"みんなで楽しむ人",ISTP:"試して学ぶ実践派",ISFP:"マイペースな表現者",ESTP:"体験重視のアクティブ派",ESFP:"楽しさを広げるエンターテイナー"};
+ const intro={I:"一人の時間を使って深く楽しめる趣味",E:"人や外の世界から刺激をもらえる趣味",N:"新しい発見や想像力を使える趣味",S:"実際に触ったり体験したりできる趣味",T:"上達・攻略・仕組みを楽しめる趣味",F:"感性・癒やし・人とのつながりを楽しめる趣味"};
+ $("resultType").textContent=`あなたの趣味タイプ　${type}`;$("resultTitle").textContent=titles[type];
+ $("resultText").textContent=`あなたは${intro[ie]}と相性がよさそう。さらに、${intro[ns]}、${intro[tf]}も趣味選びのポイントになりそうです。`;
+ $("tags").innerHTML=[ie==="I"?"ひとり時間":"人と楽しむ",ns==="N"?"新しい発見":"体験重視",tf==="T"?"上達・攻略":"癒やし・表現",jp==="J"?"コツコツ型":"自由に試す"].map(t=>`<span class="tag">${t}</span>`).join("");
+
+ const ranked=hobbies.map((h,i)=>{
+  let s=50;
+  if(h[2].includes(ie))s+=13;if(h[2].includes(ns))s+=13;if(h[2].includes(tf))s+=11;
+  if(score.A>score.B&&h[1].includes("一人"))s+=7;
+  if(score.B>score.A&&h[1].includes("交流"))s+=7;
+  if(score.C>score.A&&h[1].includes("発見"))s+=7;
+  return {h,s,i};
+ }).sort((a,b)=>b.s-a.s).slice(0,5);
+
+ $("hobbies").innerHTML=ranked.map((r,i)=>`<article class="hobby"><div class="hobby-head"><div><span class="rank">#${i+1}</span> <span class="hobby-name">${r.h[0]}</span></div><span class="match">${Math.min(99,r.s)}%</span></div><div class="hobby-meta">${r.h[1].split("・").map(x=>`<span class="mini">${x}</span>`).join("")}</div><p>${r.h[3]}</p></article>`).join("");
+
+ const top=ranked[0].h;
+ $("next").innerHTML=`<strong>${top[0]}</strong><p>${top[4]}。最初から本格的に始める必要はありません。「1回だけ試す」くらいで、自分に合うか確かめてみよう。</p>`;
+
+ const pairs={
+  "読書":["美術館巡り","語学"],"写真散歩":["ハイキング","カフェ巡り"],"料理":["ガーデニング","DIY"],"ボードゲーム":["ゲーム","カフェ巡り"],"筋トレ":["ハイキング","楽器"],"ハイキング":["写真散歩","キャンプ"],"イラスト":["動画編集","美術館巡り"],"楽器":["歌・音楽鑑賞","ゲーム"],"語学":["旅行","読書"],"ガーデニング":["料理","写真散歩"],"動画編集":["写真散歩","イラスト"],"カフェ巡り":["写真散歩","読書"],"美術館巡り":["写真散歩","イラスト"],"キャンプ":["ハイキング","写真散歩"],"ゲーム":["ボードゲーム","動画編集"],"DIY":["料理","ガーデニング"]
+ };
+ const pair=pairs[top[0]]||["写真散歩","読書"];
+ $("discovery").innerHTML=pair.map((x,i)=>`<div><b>${i===0?"今の趣味に近い方向":"少し違う方向"} → ${x}</b><span>${i===0?"今の「好き」を残したまま、新鮮さを足す。":"あえてジャンルをずらして、新しい楽しみ方を探す。"}</span></div>`).join("");
+
+ const tips=[
+ "最初から道具を揃えすぎない。まず無料・レンタル・体験版などで1回試して、ハマったら深掘りしよう。",
+ "「向いているか」より「もう一回やりたいか」で判断する。上達しなくても楽しいなら、それは十分いい趣味。",
+ "今の趣味を捨てなくてもいい。週1回だけ新しい趣味を混ぜると、マンネリ対策にもなる。",
+ "趣味に成果や収益まで求めなくてOK。誰にも見せない、自分だけの時間があってもいい。"
+ ];
+ $("tip").textContent=tips[(score.A*2+score.B*3+score.C)%tips.length];
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+async function shareResult(){
+ const text=`MBTI趣味診断をやってみた！\n${$("resultType").textContent}\n${$("resultTitle").textContent}\nあなたに合いそうな趣味：${[...document.querySelectorAll(".hobby-name")].slice(0,3).map(x=>x.textContent).join("、")}\n`;
+ if(navigator.share){try{await navigator.share({title:"MBTI 趣味診断",text,url:location.href})}catch(e){}}
+ else if(navigator.clipboard){await navigator.clipboard.writeText(text+location.href);alert("結果をコピーしました！")}
+}
+</script>
+</body>
+</html>
