@@ -16,9 +16,12 @@
 body{margin:0;color:var(--ink);background:
  radial-gradient(circle at 8% 0,#eeeaff 0,transparent 29%),
  radial-gradient(circle at 100% 8%,#fff0f4 0,transparent 25%),var(--bg);
- font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",sans-serif}
+ font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans JP","Noto Sans SC","Yu Gothic",sans-serif}
 button{font:inherit}.wrap{max-width:780px;margin:auto;padding:0 18px 70px}
-.hero{text-align:center;padding:54px 10px 30px}
+.lang-bar{display:flex;justify-content:flex-end;gap:6px;padding:16px 0 0}
+.lang-btn{border:1px solid var(--line);background:#fff;color:#6b6570;border-radius:99px;padding:6px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.lang-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hero{text-align:center;padding:24px 10px 30px}
 .badge{display:inline-flex;gap:7px;align-items:center;padding:7px 12px;border:1px solid #ded5ff;background:#fffaff;color:#674bd3;border-radius:99px;font-size:12px;font-weight:800}
 h1{font-size:clamp(37px,8vw,64px);line-height:1.03;letter-spacing:-.055em;margin:19px 0 16px}
 h1 span{color:var(--accent)}.lead{max-width:610px;margin:auto;color:#625d65;font-size:16px;line-height:1.9}
@@ -26,7 +29,7 @@ h1 span{color:var(--accent)}.lead{max-width:610px;margin:auto;color:#625d65;font
 .card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:27px;box-shadow:var(--shadow);padding:27px;margin-top:17px}
 .start-card{text-align:center}.eyebrow{font-size:12px;color:var(--accent);font-weight:850;letter-spacing:.08em}
 h2{font-size:24px;line-height:1.45;margin:8px 0 12px}.sub{color:var(--muted);line-height:1.75;font-size:14px}
-.flow{display:flex;align-items:center;justify-content:center;gap:8px;margin:19px 0 3px;color:#77717b;font-size:11px;font-weight:750}.flow-step{padding:8px 10px;background:#faf8fc;border:1px solid var(--line);border-radius:12px}.flow-arrow{color:#b1aab4;font-size:13px}.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.flow{display:flex;align-items:center;justify-content:center;gap:8px;margin:19px 0 3px;color:#77717b;font-size:11px;font-weight:750;flex-wrap:wrap}.flow-step{padding:8px 10px;background:#faf8fc;border:1px solid var(--line);border-radius:12px}.flow-arrow{color:#b1aab4;font-size:13px}.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
 .benefit{padding:15px 10px;border:1px solid var(--line);border-radius:17px;background:#fff}.benefit b{display:block;font-size:13px}.benefit span{font-size:11px;color:var(--muted);display:block;margin-top:4px}
 .primary,.secondary{width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:850;cursor:pointer}
 .primary{background:var(--accent);color:#fff}.primary:hover{background:#6245dc}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
@@ -43,37 +46,46 @@ h2{font-size:24px;line-height:1.45;margin:8px 0 12px}.sub{color:var(--muted);lin
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.note{text-align:center;color:#99939b;font-size:11px;line-height:1.7;margin:15px 0 0}
 footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
 .hidden{display:none!important}
-@media(max-width:560px){.benefits{grid-template-columns:1fr}.discovery{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.card{padding:21px}.hero{padding-top:35px}}
+@media(max-width:560px){.benefits{grid-template-columns:1fr}.discovery{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.card{padding:21px}.hero{padding-top:16px}}
 </style>
 </head>
 <body>
 <main class="wrap">
+<div class="lang-bar">
+ <button class="lang-btn active" data-lang="ja" onclick="setLang('ja')">日本語</button>
+ <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+ <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+</div>
 <section class="hero">
- <div class="badge">MBTI × 趣味探し</div>
- <h1>今ある趣味、<span>飽きてない？</span></h1>
- <p class="lead">「最近ちょっとマンネリかも」<br>「何か新しいことを始めたい」<br>そんなときに、MBTIとあなたの好みから<strong>次に試したい趣味</strong>を探します。</p>
- <div class="hero-note">趣味を変える必要はない。選択肢を増やそう。</div>
+ <div class="badge" data-i18n="badge"></div>
+ <h1 data-i18n-html="h1"></h1>
+ <p class="lead" data-i18n-html="lead"></p>
+ <div class="hero-note" data-i18n="heroNote"></div>
 </section>
 
 <section id="startCard" class="card start-card">
- <div class="eyebrow">NEW HOBBY FINDER</div>
- <h2>次の「ちょっとやってみたい」を探そう</h2>
- <p class="sub">「一人で楽しみたい」「外に出たい」「何か作りたい」など、あなたの好みを8問で整理。<br>MBTIだけではなく、今の気分や楽しみ方から、相性のよさそうな趣味を5つ提案します。</p>
- <div class="flow"><span class="flow-step">8問に答える</span><span class="flow-arrow">→</span><span class="flow-step">趣味タイプをチェック</span><span class="flow-arrow">→</span><span class="flow-step">5つの候補を見る</span></div>
- <div class="benefits">
-  <div class="benefit"><b>8問</b><span>サクッと診断</span></div>
-  <div class="benefit"><b>5候補</b><span>新しい選択肢を発見</span></div>
-  <div class="benefit"><b>登録不要</b><span>その場で結果</span></div>
+ <div class="eyebrow" data-i18n="eyebrow"></div>
+ <h2 data-i18n="startTitle"></h2>
+ <p class="sub" data-i18n-html="startSub"></p>
+ <div class="flow">
+  <span class="flow-step" data-i18n="flow1"></span><span class="flow-arrow">→</span>
+  <span class="flow-step" data-i18n="flow2"></span><span class="flow-arrow">→</span>
+  <span class="flow-step" data-i18n="flow3"></span>
  </div>
- <button class="primary" onclick="startQuiz()">新しい趣味を探す →</button>
+ <div class="benefits">
+  <div class="benefit"><b data-i18n="b1t"></b><span data-i18n="b1d"></span></div>
+  <div class="benefit"><b data-i18n="b2t"></b><span data-i18n="b2d"></span></div>
+  <div class="benefit"><b data-i18n="b3t"></b><span data-i18n="b3d"></span></div>
+ </div>
+ <button class="primary" onclick="startQuiz()" data-i18n="startBtn"></button>
 </section>
 
 <section id="quizCard" class="card hidden">
  <div class="progress-wrap"><div class="progress"><i id="bar"></i></div><div class="count" id="count"></div></div>
- <div class="eyebrow">YOUR PREFERENCE</div>
+ <div class="eyebrow" data-i18n="quizEyebrow"></div>
  <h2 class="question" id="question"></h2>
  <div class="answers" id="answers"></div>
- <button class="quiz-back" id="backBtn" onclick="goBack()">← ひとつ前の質問に戻る</button>
+ <button class="quiz-back" id="backBtn" onclick="goBack()" data-i18n="backBtn"></button>
 </section>
 
 <section id="resultCard" class="card hidden">
@@ -83,106 +95,425 @@ footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
  <div class="tags" id="tags"></div>
 
  <div class="section">
-  <h3>あなたに合いそうな趣味</h3>
-  <p class="section-desc">MBTI傾向と今回の回答から、定番から少し変わった趣味まで、相性が高そうな順に並べています。</p>
+  <h3 data-i18n="secHobbies"></h3>
+  <p class="section-desc" data-i18n="secHobbiesDesc"></p>
   <div class="hobbies" id="hobbies"></div>
  </div>
 
  <div class="section">
-  <h3>まず試すなら</h3>
+  <h3 data-i18n="secNext"></h3>
   <div class="next" id="next"></div>
  </div>
 
  <div class="section">
-  <h3>今の趣味から広げるなら</h3>
+  <h3 data-i18n="secDiscovery"></h3>
   <div class="discovery" id="discovery"></div>
  </div>
 
  <div class="section">
-  <h3>続けるコツ</h3>
+  <h3 data-i18n="secTip"></h3>
   <div class="tip" id="tip"></div>
  </div>
 
  <div class="actions">
-  <button class="primary" onclick="shareResult()">結果をシェア</button>
-  <button class="secondary" onclick="location.reload()">もう一度診断</button>
+  <button class="primary" onclick="shareResult()" data-i18n="shareBtn"></button>
+  <button class="secondary" onclick="location.reload()" data-i18n="retryBtn"></button>
  </div>
- <p class="note">この診断は「向いている趣味」を断定するものではありません。<br>新しい選択肢を見つけるためのきっかけとして楽しんでください。</p>
+ <p class="note" data-i18n-html="note"></p>
 </section>
-<footer>MBTI 趣味診断</footer>
+<footer data-i18n="footer"></footer>
 </main>
 
 <script>
-const questions=[
- {q:"新しい趣味を始めるなら？",a:[["A","一人でじっくり楽しめるもの","自分のペースで深くハマりたい"],["B","誰かと一緒に楽しめるもの","人との時間も含めて楽しみたい"],["C","どちらでも。内容次第","面白そうならスタイルは気にしない"]]},
- {q:"休日に一番ほしい時間は？",a:[["A","静かに没頭する時間","周りを気にせず集中したい"],["B","外に出て刺激を受ける時間","新しい場所や人に触れたい"],["C","その日の気分で決める","予定に縛られず自由に過ごしたい"]]},
- {q:"趣味に一番求めたいのは？",a:[["A","上達・達成感","できることが増えるのが楽しい"],["B","癒やし・気分転換","心が軽くなる時間がほしい"],["C","発見・刺激","知らない世界を見てみたい"]]},
- {q:"ちょっと惹かれるのは？",a:[["A","何かを作る","絵・料理・DIY・動画など"],["B","体を動かす","散歩・スポーツ・ダンスなど"],["C","知識を深める","読書・語学・歴史・科学など"]]},
- {q:"趣味に使う時間は？",a:[["A","毎日少しずつ","短時間でも積み上げたい"],["B","休日にまとめて","まとまった時間で楽しみたい"],["C","気が向いたとき","やりたいときにやりたい"]]},
- {q:"始める前に一番気になるのは？",a:[["A","費用","なるべく低コストで試したい"],["B","難しさ","初心者でもできるか気になる"],["C","場所・環境","家や近所でできるか気になる"]]},
- {q:"「楽しかった！」と感じる瞬間は？",a:[["A","自分の記録を更新したとき","昨日の自分より成長した"],["B","誰かと楽しい時間を過ごしたとき","一緒に楽しめた"],["C","知らないことを知ったとき","世界が少し広がった"]]},
- {q:"今のあなたに近いのは？",a:[["A","今ある趣味に少しマンネリを感じる","似た方向で新しい刺激がほしい"],["B","今ある趣味とは違うことをしたい","未知のジャンルを試したい"],["C","そもそも趣味の候補が思いつかない","まずは選択肢をたくさん知りたい"]]}
-];
+const I18N = {
+ja: {
+ htmlLang:"ja", title:"MBTI 趣味診断 | 今ある趣味、飽きてない？",
+ desc:"今ある趣味、ちょっと飽きてない？MBTIとあなたの好みから、次に試したい新しい趣味を探す無料診断。登録不要。",
+ badge:"MBTI × 趣味探し",
+ h1:"今ある趣味、<span>飽きてない？</span>",
+ lead:"「最近ちょっとマンネリかも」<br>「何か新しいことを始めたい」<br>そんなときに、MBTIとあなたの好みから<strong>次に試したい趣味</strong>を探します。",
+ heroNote:"趣味を変える必要はない。選択肢を増やそう。",
+ eyebrow:"NEW HOBBY FINDER", startTitle:"次の「ちょっとやってみたい」を探そう",
+ startSub:"「一人で楽しみたい」「外に出たい」「何か作りたい」など、あなたの好みを8問で整理。<br>MBTIだけではなく、今の気分や楽しみ方から、相性のよさそうな趣味を5つ提案します。",
+ flow1:"8問に答える", flow2:"趣味タイプをチェック", flow3:"5つの候補を見る",
+ b1t:"8問", b1d:"サクッと診断", b2t:"5候補", b2d:"新しい選択肢を発見", b3t:"登録不要", b3d:"その場で結果",
+ startBtn:"新しい趣味を探す →", quizEyebrow:"YOUR PREFERENCE", backBtn:"← ひとつ前の質問に戻る",
+ secHobbies:"あなたに合いそうな趣味", secHobbiesDesc:"MBTI傾向と今回の回答から、定番から少し変わった趣味まで、相性が高そうな順に並べています。",
+ secNext:"まず試すなら", secDiscovery:"今の趣味から広げるなら", secTip:"続けるコツ",
+ shareBtn:"結果をシェア", retryBtn:"もう一度診断",
+ note:"この診断は「向いている趣味」を断定するものではありません。<br>新しい選択肢を見つけるためのきっかけとして楽しんでください。",
+ footer:"MBTI 趣味診断",
+ typePrefix:"あなたの趣味タイプ　",
+ resultLead:(ie,ns,tf)=>`あなたは${ie}と相性がよさそう。さらに、${ns}、${tf}も趣味選びのポイントになりそうです。`,
+ nextBody:"最初から本格的に始める必要はありません。「1回だけ試す」くらいで、自分に合うか確かめてみよう。",
+ discNear:"今の趣味に近い方向", discFar:"少し違う方向",
+ discNearD:"今の「好き」を残したまま、新鮮さを足す。",
+ discFarD:"あえてジャンルをずらして、新しい楽しみ方を探す。",
+ shareTitle:"MBTI 趣味診断",
+ shareText:(type,title,hobbies)=>`MBTI趣味診断をやってみた！\n${type}\n${title}\nあなたに合いそうな趣味：${hobbies}\n`,
+ copied:"結果をコピーしました！",
+ titles:{INTJ:"静かな探究者",INTP:"自由な研究者",ENTJ:"挑戦する開拓者",ENTP:"新しい刺激のハンター",INFJ:"世界を深く味わう人",INFP:"感性で探すクリエイター",ENFJ:"人と楽しむプロデューサー",ENFP:"好奇心の冒険家",ISTJ:"コツコツ極める職人",ISFJ:"暮らしを楽しむ人",ESTJ:"行動派チャレンジャー",ESFJ:"みんなで楽しむ人",ISTP:"試して学ぶ実践派",ISFP:"マイペースな表現者",ESTP:"体験重視のアクティブ派",ESFP:"楽しさを広げるエンターテイナー"},
+ intro:{I:"一人の時間を使って深く楽しめる趣味",E:"人や外の世界から刺激をもらえる趣味",N:"新しい発見や想像力を使える趣味",S:"実際に触ったり体験したりできる趣味",T:"上達・攻略・仕組みを楽しめる趣味",F:"感性・癒やし・人とのつながりを楽しめる趣味"},
+ tags:{I:"ひとり時間",E:"人と楽しむ",N:"新しい発見",S:"体験重視",T:"上達・攻略",F:"癒やし・表現",J:"コツコツ型",P:"自由に試す"},
+ tips:[
+  "最初から道具を揃えすぎない。まず無料・レンタル・体験版などで1回試して、ハマったら深掘りしよう。",
+  "「向いているか」より「もう一回やりたいか」で判断する。上達しなくても楽しいなら、それは十分いい趣味。",
+  "今の趣味を捨てなくてもいい。週1回だけ新しい趣味を混ぜると、マンネリ対策にもなる。",
+  "趣味に成果や収益まで求めなくてOK。誰にも見せない、自分だけの時間があってもいい。"
+ ],
+ questions:[
+  {q:"新しい趣味を始めるなら？",a:[["A","一人でじっくり楽しめるもの","自分のペースで深くハマりたい"],["B","誰かと一緒に楽しめるもの","人との時間も含めて楽しみたい"],["C","どちらでも。内容次第","面白そうならスタイルは気にしない"]]},
+  {q:"休日に一番ほしい時間は？",a:[["A","静かに没頭する時間","周りを気にせず集中したい"],["B","外に出て刺激を受ける時間","新しい場所や人に触れたい"],["C","その日の気分で決める","予定に縛られず自由に過ごしたい"]]},
+  {q:"趣味に一番求めたいのは？",a:[["A","上達・達成感","できることが増えるのが楽しい"],["B","癒やし・気分転換","心が軽くなる時間がほしい"],["C","発見・刺激","知らない世界を見てみたい"]]},
+  {q:"ちょっと惹かれるのは？",a:[["A","何かを作る","絵・料理・DIY・動画など"],["B","体を動かす","散歩・スポーツ・ダンスなど"],["C","知識を深める","読書・語学・歴史・科学など"]]},
+  {q:"趣味に使う時間は？",a:[["A","毎日少しずつ","短時間でも積み上げたい"],["B","休日にまとめて","まとまった時間で楽しみたい"],["C","気が向いたとき","やりたいときにやりたい"]]},
+  {q:"始める前に一番気になるのは？",a:[["A","費用","なるべく低コストで試したい"],["B","難しさ","初心者でもできるか気になる"],["C","場所・環境","家や近所でできるか気になる"]]},
+  {q:"「楽しかった！」と感じる瞬間は？",a:[["A","自分の記録を更新したとき","昨日の自分より成長した"],["B","誰かと楽しい時間を過ごしたとき","一緒に楽しめた"],["C","知らないことを知ったとき","世界が少し広がった"]]},
+  {q:"今のあなたに近いのは？",a:[["A","今ある趣味に少しマンネリを感じる","似た方向で新しい刺激がほしい"],["B","今ある趣味とは違うことをしたい","未知のジャンルを試したい"],["C","そもそも趣味の候補が思いつかない","まずは選択肢をたくさん知りたい"]]}
+ ]
+},
+en: {
+ htmlLang:"en", title:"MBTI Hobby Finder | Ready for something new?",
+ desc:"A free quiz that uses MBTI and your preferences to suggest new hobbies. No sign-up.",
+ badge:"MBTI × Hobby Finder",
+ h1:"Tired of your <span>usual hobbies?</span>",
+ lead:"Feeling stuck in a rut?<br>Want to try something new?<br>We’ll suggest <strong>hobbies worth trying next</strong> from your MBTI and current mood.",
+ heroNote:"You don’t have to replace your hobbies. Just add more options.",
+ eyebrow:"NEW HOBBY FINDER", startTitle:"Find your next “I might try that”",
+ startSub:"Answer 8 questions about how you like to spend time — alone, outdoors, making things, and more.<br>We’ll suggest 5 hobbies that fit not only your MBTI, but how you want to enjoy life right now.",
+ flow1:"Answer 8 questions", flow2:"See your hobby type", flow3:"Get 5 ideas",
+ b1t:"8 questions", b1d:"Quick quiz", b2t:"5 ideas", b2d:"Fresh options", b3t:"No sign-up", b3d:"Instant results",
+ startBtn:"Find a new hobby →", quizEyebrow:"YOUR PREFERENCE", backBtn:"← Previous question",
+ secHobbies:"Hobbies that may fit you", secHobbiesDesc:"Ranked from your MBTI leanings and this quiz — from classics to slightly unusual picks.",
+ secNext:"Start here", secDiscovery:"If you want to expand from what you already like", secTip:"How to keep going",
+ shareBtn:"Share result", retryBtn:"Take the quiz again",
+ note:"This quiz doesn’t declare the “right” hobby for you.<br>Treat it as a spark for new options.",
+ footer:"MBTI Hobby Finder",
+ typePrefix:"Your hobby type  ",
+ resultLead:(ie,ns,tf)=>`You seem to click with ${ie}. ${ns} and ${tf} also look like useful clues when choosing a hobby.`,
+ nextBody:"You don’t need to go all-in. Try it once and see if it feels like you.",
+ discNear:"Close to what you already like", discFar:"A little different",
+ discNearD:"Keep what you love and add a fresh twist.",
+ discFarD:"Shift the genre on purpose and look for a new kind of fun.",
+ shareTitle:"MBTI Hobby Finder",
+ shareText:(type,title,hobbies)=>`I tried the MBTI Hobby Finder!\n${type}\n${title}\nHobbies that may fit me: ${hobbies}\n`,
+ copied:"Result copied!",
+ titles:{INTJ:"Quiet Explorer",INTP:"Freeform Researcher",ENTJ:"Bold Pioneer",ENTP:"Hunter of New Stimuli",INFJ:"Deep Taster of the World",INFP:"Feeling-Led Creator",ENFJ:"People-First Producer",ENFP:"Curious Adventurer",ISTJ:"Steady Craftsperson",ISFJ:"Everyday Enjoyer",ESTJ:"Action Challenger",ESFJ:"Together-Time Person",ISTP:"Learn-by-Doing Type",ISFP:"My-Pace Expresser",ESTP:"Experience-First Active Type",ESFP:"Joy-Spreading Entertainer"},
+ intro:{I:"hobbies you can enjoy deeply on your own",E:"hobbies that draw energy from people and the outside world",N:"hobbies that use discovery and imagination",S:"hobbies you can touch and experience",T:"hobbies built around skill, strategy, and systems",F:"hobbies built around feeling, comfort, and connection"},
+ tags:{I:"Solo time",E:"With people",N:"Discovery",S:"Hands-on",T:"Skill & strategy",F:"Comfort & expression",J:"Steady builder",P:"Free explorer"},
+ tips:[
+  "Don’t buy everything first. Try a free, rental, or trial version once — go deeper only if it clicks.",
+  "Judge by “would I do this again?” not “am I good at this?” Fun without mastery still counts.",
+  "You don’t have to drop current hobbies. Mixing in one new thing a week can break the rut.",
+  "Hobbies don’t need results or income. A private hour that no one sees is enough."
+ ],
+ questions:[
+  {q:"If you start a new hobby, you’d rather…",a:[["A","Enjoy it slowly on your own","Go deep at your own pace"],["B","Enjoy it with someone","The time together is part of the fun"],["C","Either — depends on the hobby","Style doesn’t matter if it’s interesting"]]},
+  {q:"What kind of weekend time do you want most?",a:[["A","Quiet focus time","Concentrate without worrying about others"],["B","Time outside for stimulation","New places and people"],["C","Whatever the day feels like","Stay free of fixed plans"]]},
+  {q:"What do you want most from a hobby?",a:[["A","Growth and achievement","Getting better feels good"],["B","Comfort and a reset","A lighter mood"],["C","Discovery and spark","See a world you don’t know yet"]]},
+  {q:"What pulls you in a little?",a:[["A","Making something","Art, cooking, DIY, video…"],["B","Moving your body","Walking, sports, dance…"],["C","Going deeper on knowledge","Reading, languages, history, science…"]]},
+  {q:"How do you want to spend hobby time?",a:[["A","A little every day","Build it in short sessions"],["B","In a block on the weekend","Enjoy a longer stretch"],["C","Whenever I feel like it","Do it when I want to"]]},
+  {q:"What worries you most before starting?",a:[["A","Cost","I want a low-cost trial"],["B","Difficulty","Can a beginner do this?"],["C","Place and setup","Can I do it at home or nearby?"]]},
+  {q:"When do you think “that was fun!”?",a:[["A","When I beat my own record","I grew from yesterday"],["B","When I share a good time with someone","We enjoyed it together"],["C","When I learn something new","My world got a little bigger"]]},
+  {q:"Which is closest to you now?",a:[["A","My current hobbies feel a bit stale","I want a new spark in a similar direction"],["B","I want something different from what I already do","Try an unknown genre"],["C","I can’t even think of hobby options","I first want lots of ideas"]]}
+ ]
+},
+zh: {
+ htmlLang:"zh-CN", title:"MBTI 兴趣诊断 | 现在的爱好，会不会有点腻了？",
+ desc:"免费诊断：根据 MBTI 和你的偏好，找出下一步想尝试的新兴趣。无需注册。",
+ badge:"MBTI × 找兴趣",
+ h1:"现在的爱好，<span>会不会有点腻？</span>",
+ lead:"「最近好像有点倦怠」<br>「想开始点新的事情」<br>这时候，用 MBTI 和你的偏好，找出<strong>下一步想尝试的兴趣</strong>。",
+ heroNote:"不必丢掉现在的爱好。先把选择变多。",
+ eyebrow:"NEW HOBBY FINDER", startTitle:"找出下一个「有点想试试」",
+ startSub:"用 8 道题整理你的偏好：想一个人享受、想出门、想动手做东西……<br>不只看 MBTI，也会根据当下心情和玩法，推荐 5 个更合拍的兴趣。",
+ flow1:"回答 8 题", flow2:"查看兴趣类型", flow3:"看 5 个候选",
+ b1t:"8 题", b1d:"快速诊断", b2t:"5 个候选", b2d:"发现新选择", b3t:"无需注册", b3d:"当场出结果",
+ startBtn:"寻找新兴趣 →", quizEyebrow:"YOUR PREFERENCE", backBtn:"← 回到上一题",
+ secHobbies:"可能适合你的兴趣", secHobbiesDesc:"根据 MBTI 倾向和本次回答，从常见到稍冷门的兴趣，按契合度排列。",
+ secNext:"如果先试一个", secDiscovery:"想从现在的爱好往外扩", secTip:"坚持下去的小提示",
+ shareBtn:"分享结果", retryBtn:"再测一次",
+ note:"这份诊断并不是在断定「你适合什么兴趣」。<br>请把它当成发现新选择的契机来玩。",
+ footer:"MBTI 兴趣诊断",
+ typePrefix:"你的兴趣类型　",
+ resultLead:(ie,ns,tf)=>`你似乎更契合${ie}。另外，${ns}、${tf} 也可能是选兴趣时的关键。`,
+ nextBody:"不必一开始就很正式。先「只试一次」，确认它是否适合你。",
+ discNear:"接近现在爱好的方向", discFar:"稍微不同的方向",
+ discNearD:"保留现在的「喜欢」，再加一点新鲜感。",
+ discFarD:"故意换个类型，寻找新的玩法。",
+ shareTitle:"MBTI 兴趣诊断",
+ shareText:(type,title,hobbies)=>`我做了 MBTI 兴趣诊断！\n${type}\n${title}\n可能适合我的兴趣：${hobbies}\n`,
+ copied:"已复制结果！",
+ titles:{INTJ:"安静的探究者",INTP:"自由的研究者",ENTJ:"敢于开拓的人",ENTP:"寻找新刺激的猎人",INFJ:"把世界细细品尝的人",INFP:"凭感觉寻找的创作者",ENFJ:"和人一起玩的制作人",ENFP:"好奇心冒险家",ISTJ:"一点点打磨的匠人",ISFJ:"享受生活的人",ESTJ:"行动派挑战者",ESFJ:"大家一起玩的人",ISTP:"先试再学的实践派",ISFP:"按自己节奏表达的人",ESTP:"重视体验的行动派",ESFP:"把快乐扩散出去的人"},
+ intro:{I:"能用独处时间深入享受的兴趣",E:"能从人和外面世界获得刺激的兴趣",N:"能用上新发现和想象力的兴趣",S:"能亲手触摸、实际体验的兴趣",T:"能享受进步、攻略和机制的兴趣",F:"能享受感性、疗愈和连接的兴趣"},
+ tags:{I:"独处时间",E:"和人一起",N:"新发现",S:"重视体验",T:"进步与攻略",F:"疗愈与表达",J:"稳步积累型",P:"自由尝试型"},
+ tips:[
+  "先别把工具买齐。用免费、租借或体验版试一次，真的喜欢再深入。",
+  "与其问「适不适合」，不如问「还想不想再来一次」。即使没变强，只要开心就够了。",
+  "不必丢掉现在的爱好。每周只混进一次新兴趣，也能打破倦怠。",
+  "兴趣不必追求成果或赚钱。可以有一段谁也不给看、只属于自己的时间。"
+ ],
+ questions:[
+  {q:"如果开始新兴趣，你更想？",a:[["A","一个人慢慢享受","按自己的节奏深入沉迷"],["B","和别人一起享受","把相处时间也算进乐趣里"],["C","都可以，看内容","只要有趣，形式无所谓"]]},
+  {q:"休息日最想要的时间是？",a:[["A","安静沉浸的时间","不想在意周围，专心做事"],["B","出门接受刺激的时间","想接触新地方和新的人"],["C","看当天心情再定","不想被行程绑住"]]},
+  {q:"对兴趣最想要的是？",a:[["A","进步和成就感","能做的事情变多很开心"],["B","疗愈和转换心情","想要心情变轻的时间"],["C","发现和刺激","想看看未知的世界"]]},
+  {q:"更有一点心动的是？",a:[["A","做点什么","画画、做饭、手工、视频等"],["B","活动身体","散步、运动、舞蹈等"],["C","加深知识","阅读、语言、历史、科学等"]]},
+  {q:"兴趣时间你想怎么用？",a:[["A","每天一点点","短时间也想慢慢累积"],["B","休息日一次做完","想用整段时间好好享受"],["C","想做的时候再做","想做就做"]]},
+  {q:"开始前最在意的是？",a:[["A","费用","想尽量低成本先试"],["B","难度","在意新手能不能上手"],["C","地点和环境","在意家里或附近能不能做"]]},
+  {q:"什么时候会觉得「好开心！」？",a:[["A","刷新了自己的记录","比昨天的自己进步了"],["B","和别人一起度过了快乐时光","一起玩得很开心"],["C","知道了以前不知道的事","世界稍微变大了一点"]]},
+  {q:"现在的你更接近哪一句？",a:[["A","对现有爱好有点倦怠","想在相近方向找新刺激"],["B","想做和现在不一样的事","想试试未知类型"],["C","根本想不出爱好选项","先想看很多选择"]]}
+ ]
+}
+};
+
+const HOBBY_I18N = {
+ja: {
+ "読書":["読書","一人・低コスト・知識","静かな時間に没頭しながら、知らない世界を広げられる。","今夜からでも始めやすい"],
+ "写真散歩":["写真散歩","一人・外出・発見","散歩に「探す」という目的が加わり、道具が少なくても始めやすい。","スマホだけで試せる"],
+ "料理":["料理","創作・実用・上達","作ったものが成果として残るので、上達も実感しやすい。","家にある材料から試せる"],
+ "ボードゲーム":["ボードゲーム","交流・戦略・発見","人と遊びながら考える楽しさを味わえる。","友人との1回から試せる"],
+ "筋トレ":["筋トレ","上達・習慣・記録","小さな成長を数字で確認しやすく、習慣にもつなげやすい。","短時間から始められる"],
+ "ハイキング":["ハイキング","外出・自然・体験","景色と運動をまとめて楽しめ、日常から少し離れられる。","近場のコースから試せる"],
+ "イラスト":["イラスト","一人・創作・上達","頭の中のイメージを形にする、没頭型の趣味。","紙とペンからでも始められる"],
+ "楽器":["楽器","練習・表現・達成","練習するほどできることが増え、自分なりの表現にもつながる。","無料教材から試せる"],
+ "語学":["語学","知識・継続・交流","積み上げが実感しやすく、旅行や交流など別の楽しみにも広げられる。","1日10分から試せる"],
+ "ガーデニング":["ガーデニング","癒やし・自然・継続","植物の変化を眺めたり世話したりすること自体が気分転換になる。","小さな鉢から試せる"],
+ "動画編集":["動画編集","創作・PC・スキル","作品を作りながら、実用的なスキルも磨ける。","スマホ編集からでも試せる"],
+ "カフェ巡り":["カフェ巡り","外出・発見・気分転換","新しい店を探すだけでも、小さな冒険になる。","近所の1店から試せる"],
+ "美術館巡り":["美術館巡り","静か・発見・文化","自分のペースで作品を眺め、感性を刺激できる。","まず1展示だけでもOK"],
+ "キャンプ":["キャンプ","自然・体験・非日常","日常から少し離れて、体験そのものを楽しめる。","デイキャンプから試せる"],
+ "ゲーム":["ゲーム","没頭・交流・達成","一人でも誰かとでも遊べ、ジャンルの幅も広い。","短時間の作品から試せる"],
+ "DIY":["DIY","創作・実用・達成","自分で作ったものが生活で使えるのが魅力。","小さな工作から試せる"],
+ "陶芸":["陶芸","創作・手作業・没頭","土に触れながら形を作る、デジタルとは違う手触りのある趣味。","1日体験教室から試せる"],
+ "書道・筆文字":["書道・筆文字","静か・表現・上達","文字の美しさを追いながら、集中する時間も楽しめる。","道具を少なく始められる"],
+ "コーヒー・紅茶":["コーヒー・紅茶","探究・感覚・日常","豆や茶葉、淹れ方の違いを試すほど奥深くなる。","いつもの一杯から比べてみる"],
+ "パン・お菓子作り":["パン・お菓子作り","創作・実用・実験","レシピを再現するだけでなく、配合を変える実験もできる。","簡単なレシピから試せる"],
+ "釣り":["釣り","自然・集中・体験","静かに待つ時間と、魚がかかった瞬間の緊張感を両方楽しめる。","管理釣り場から試せる"],
+ "野鳥観察":["野鳥観察","自然・発見・収集","身近な公園でも鳥を探すだけで、いつもの景色が少し変わる。","双眼鏡なしでも始められる"],
+ "星空観察":["星空観察","静か・自然・探究","夜空を眺めながら星や宇宙について知る、ゆったりした趣味。","晴れた夜に外へ出るだけでもOK"],
+ "鉱物・化石集め":["鉱物・化石集め","収集・探究・発見","石の見た目から産地や成分まで調べ始めると奥深い。","まずは1個から集められる"],
+ "御朱印・寺社巡り":["御朱印・寺社巡り","外出・文化・収集","街歩きと歴史・建築を組み合わせて楽しめる。","近所の寺社から始められる"],
+ "博物館巡り":["博物館巡り","知識・発見・外出","科学・歴史・民俗など、興味の入口を見つけやすい。","気になる展示だけでも楽しめる"],
+ "美術・映画鑑賞":["美術・映画鑑賞","感性・発見・一人","作品を味わったり感想を考えたりするだけでも楽しめる。","1本・1作品から試せる"],
+ "映画制作・映像撮影":["映画制作・映像撮影","創作・表現・技術","撮影・構成・編集まで、自分で作品を組み立てられる。","スマホ撮影から始められる"],
+ "ブログ・エッセイ":["ブログ・エッセイ","一人・表現・知識","好きなことを文章にして整理すると、新しい興味も見つかる。","非公開メモからでも始められる"],
+ "プログラミング":["プログラミング","PC・創作・攻略","コードで仕組みを作り、試行錯誤しながら完成させる楽しさがある。","小さなWeb作品から試せる"],
+ "3Dモデリング":["3Dモデリング","PC・創作・技術","立体を設計して形にする、制作好き向けのデジタル趣味。","無料ソフトから試せる"],
+ "電子工作":["電子工作","創作・実験・技術","部品を組み合わせて実際に動くものを作る面白さがある。","小さなキットから試せる"],
+ "謎解き・脱出ゲーム":["謎解き・脱出ゲーム","攻略・発見・交流","情報を組み合わせて答えを見つける、短時間でも没頭できる趣味。","1回参加するだけでもOK"],
+ "将棋・囲碁":["将棋・囲碁","戦略・上達・対戦","考えるほど奥が深く、棋譜や成績から成長も追いやすい。","アプリで無料対局から試せる"],
+ "カードゲーム":["カードゲーム","戦略・交流・収集","対戦・デッキ構築・カード収集など、楽しみ方を広げやすい。","初心者向けルールから試せる"],
+ "模型・プラモデル":["模型・プラモデル","制作・収集・没頭","組み立てや塗装に集中し、完成品を眺めるところまで楽しめる。","小さなキットから始められる"],
+ "レザークラフト":["レザークラフト","手作業・創作・実用","革を加工して財布や小物など、自分で使えるものを作れる。","簡単な小物キットから試せる"],
+ "編み物・刺繍":["編み物・刺繍","手作業・癒やし・創作","手を動かすリズムと、少しずつ形になっていく過程を楽しめる。","小さな作品から始められる"],
+ "ダンス":["ダンス","運動・表現・交流","音楽に合わせて体を動かし、運動と表現の両方を楽しめる。","動画を見ながら一人でも試せる"],
+ "サイクリング":["サイクリング","外出・運動・探索","移動そのものが遊びになり、知らない道を探索できる。","近所を30分走るところから"],
+ "地図・街歩き":["地図・街歩き","探索・発見・外出","地図を眺めたり知らない道を歩いたりして、身近な場所を再発見する。","近所の知らない道から試せる"],
+ "ボルダリング":["ボルダリング","運動・攻略・達成","体を使いながらルート攻略を考える、ゲーム感覚の運動。","初心者体験から試せる"],
+ "料理研究・食べ比べ":["料理研究・食べ比べ","探究・発見・実用","同じ料理や飲み物を比べて、違いを探すだけでも奥深い。","身近な商品から試せる"],
+ "香水・香り探究":["香水・香り探究","感覚・発見・収集","香りの違いを比べながら、自分の好みを掘り下げられる。","試香から気軽に試せる"],
+ "アクアリウム":["アクアリウム","自然・観察・創作","水槽の環境を整え、生き物や水草の変化を観察する趣味。","小型水槽から検討できる"],
+ "家庭菜園":["家庭菜園","自然・実用・継続","育てる・収穫するまでの変化が分かりやすく、食卓にもつながる。","ベランダの鉢から始められる"],
+ "手帳・ノート術":["手帳・ノート術","整理・創作・継続","予定だけでなく、記録やアイデア整理そのものを楽しめる。","紙1冊から始められる"],
+ "パズル・数独":["パズル・数独","一人・攻略・低コスト","静かに考え続けて答えにたどり着く、短時間でも満足感のある趣味。","無料問題から試せる"],
+ "歌・音楽鑑賞":["歌・音楽鑑賞","表現・感覚・癒やし","聴く・歌うだけでも気分が変わり、趣味の幅を広げやすい。","好きな1曲から始められる"],
+ "旅行":["旅行","外出・発見・体験","知らない土地を歩くこと自体が刺激になる。","近場の小旅行から試せる"]
+},
+en: {
+ "読書":["Reading","solo · low cost · knowledge","Sink into quiet time and widen a world you don’t know yet.","Easy to start tonight"],
+ "写真散歩":["Photo walks","solo · outdoors · discovery","A walk plus a reason to look. Easy to start with little gear.","Try it with just a phone"],
+ "料理":["Cooking","making · practical · skill","What you make stays as a result, so progress is easy to feel.","Start with what’s in the kitchen"],
+ "ボードゲーム":["Board games","social · strategy · discovery","Think and play with people at the same time.","Try one session with friends"],
+ "筋トレ":["Strength training","skill · habit · tracking","Small gains show up in numbers and can become a habit.","Start with short sessions"],
+ "ハイキング":["Hiking","outdoors · nature · experience","Scenery plus movement, a small step away from routine.","Try a nearby trail"],
+ "イラスト":["Drawing","solo · making · skill","Turn images in your head into form — a deep-focus hobby.","Paper and a pen are enough"],
+ "楽器":["An instrument","practice · expression · achievement","The more you practice, the more you can do — and express.","Start with free lessons"],
+ "語学":["A language","knowledge · consistency · connection","Progress is easy to feel, and it opens travel and conversation.","Ten minutes a day is enough"],
+ "ガーデニング":["Gardening","comfort · nature · consistency","Watching and tending plants is already a mood reset.","Start with one small pot"],
+ "動画編集":["Video editing","making · computer · skill","You make something and pick up a useful skill.","Phone editing counts"],
+ "カフェ巡り":["Café hopping","outdoors · discovery · reset","Even finding one new shop can feel like a tiny adventure.","Start with one nearby café"],
+ "美術館巡り":["Art museums","quiet · discovery · culture","Look at work at your own pace and wake up your senses.","One exhibition is enough"],
+ "キャンプ":["Camping","nature · experience · escape","Step out of routine and enjoy the experience itself.","Start with a day trip"],
+ "ゲーム":["Games","focus · social · achievement","Solo or together, and the range of genres is huge.","Start with a short title"],
+ "DIY":["DIY","making · practical · achievement","The charm is using what you built in daily life.","Start with a small project"],
+ "陶芸":["Pottery","making · hands-on · focus","Shape clay with your hands — a tactile hobby, not digital.","Try a one-day class"],
+ "書道・筆文字":["Calligraphy","quiet · expression · skill","Chase the beauty of letters and enjoy the focus.","Start with few tools"],
+ "コーヒー・紅茶":["Coffee & tea","inquiry · senses · everyday","Beans, leaves, and brew methods get deeper the more you try.","Compare your usual cup first"],
+ "パン・お菓子作り":["Baking","making · practical · experiment","Reproduce a recipe — or change the ratios and experiment.","Start with an easy recipe"],
+ "釣り":["Fishing","nature · focus · experience","Quiet waiting, then the jolt when something bites.","Try a managed pond"],
+ "野鳥観察":["Birdwatching","nature · discovery · collecting","Looking for birds in a nearby park can change the same view.","No binoculars required to start"],
+ "星空観察":["Stargazing","quiet · nature · inquiry","Look up and learn about stars and space at an easy pace.","Just go outside on a clear night"],
+ "鉱物・化石集め":["Rocks & fossils","collecting · inquiry · discovery","From look to origin and composition, it gets deep fast.","Start with one piece"],
+ "御朱印・寺社巡り":["Shrines & temple stamps","outdoors · culture · collecting","Combine walking with history and architecture.","Start with a nearby shrine"],
+ "博物館巡り":["Museums","knowledge · discovery · outdoors","Science, history, folk life — easy doors into curiosity.","Even one exhibit is enough"],
+ "美術・映画鑑賞":["Art & film","feeling · discovery · solo","Enjoying a work and thinking about it already counts.","One film or one piece is enough"],
+ "映画制作・映像撮影":["Filmmaking","making · expression · craft","Shoot, structure, edit — build a piece yourself.","Start with a phone"],
+ "ブログ・エッセイ":["Blogging / essays","solo · expression · knowledge","Writing what you like can uncover new interests.","A private note is enough"],
+ "プログラミング":["Programming","computer · making · puzzle","Build a system in code and finish it through trial and error.","Start with a tiny web project"],
+ "3Dモデリング":["3D modeling","computer · making · craft","Design something in three dimensions — for people who like making.","Free software is enough"],
+ "電子工作":["Electronics","making · experiment · craft","Combine parts until something actually moves.","Start with a small kit"],
+ "謎解き・脱出ゲーム":["Escape / puzzle games","strategy · discovery · social","Combine clues and find the answer — easy to sink into quickly.","One session is enough"],
+ "将棋・囲碁":["Shogi / Go","strategy · skill · match","The more you think, the deeper it goes — and records show growth.","Free app matches to start"],
+ "カードゲーム":["Card games","strategy · social · collecting","Matches, deck building, collecting — easy to expand.","Start with beginner rules"],
+ "模型・プラモデル":["Scale models","making · collecting · focus","Assemble, paint, then look at the finished piece.","Start with a small kit"],
+ "レザークラフト":["Leathercraft","hands-on · making · practical","Work leather into a wallet or small item you can use.","Start with a simple kit"],
+ "編み物・刺繍":["Knitting / embroidery","hands-on · comfort · making","Enjoy the rhythm of your hands and a form that grows slowly.","Start with a small piece"],
+ "ダンス":["Dance","movement · expression · social","Move with music — exercise and expression together.","Try alone with a video"],
+ "サイクリング":["Cycling","outdoors · movement · exploring","The ride itself is play, and unknown roads are the point.","Start with 30 minutes nearby"],
+ "地図・街歩き":["Maps & city walks","exploring · discovery · outdoors","Look at a map or walk an unknown street and rediscover nearby places.","Try an unfamiliar street nearby"],
+ "ボルダリング":["Bouldering","movement · strategy · achievement","Use your body and solve a route — sport with a game feel.","Start with a beginner session"],
+ "料理研究・食べ比べ":["Taste tests","inquiry · discovery · practical","Compare the same dish or drink and hunt for differences.","Start with everyday products"],
+ "香水・香り探究":["Fragrance","senses · discovery · collecting","Compare scents and dig into what you actually like.","Start by sampling"],
+ "アクアリウム":["Aquariums","nature · watching · making","Set up a tank and watch fish and plants change.","A small tank is enough to consider"],
+ "家庭菜園":["Home growing","nature · practical · consistency","Growth from plant to harvest is easy to see — and it reaches the table.","Start with a balcony pot"],
+ "手帳・ノート術":["Notebooks & planners","organizing · making · consistency","Not just schedules — recording and sorting ideas can be the hobby.","One notebook is enough"],
+ "パズル・数独":["Puzzles / sudoku","solo · strategy · low cost","Think quietly until the answer arrives — satisfying even in short bursts.","Start with free puzzles"],
+ "歌・音楽鑑賞":["Singing / listening","expression · senses · comfort","Listening or singing can change your mood and widen other hobbies.","Start with one favorite song"],
+ "旅行":["Travel","outdoors · discovery · experience","Walking an unknown place is stimulation by itself.","Start with a short nearby trip"]
+},
+zh: {
+ "読書":["阅读","独处 · 低成本 · 知识","在安静时间里沉浸，把未知的世界慢慢打开。","今晚就能开始"],
+ "写真散歩":["拍照散步","独处 · 出门 · 发现","给散步加上「寻找」的目的，工具很少也能开始。","只用手机就能试"],
+ "料理":["做饭","创作 · 实用 · 进步","做出来的东西会留下来，进步也更容易感受到。","用家里已有的食材试"],
+ "ボードゲーム":["桌游","交流 · 策略 · 发现","一边和人玩，一边享受思考。","和朋友玩一次就开始"],
+ "筋トレ":["力量训练","进步 · 习惯 · 记录","小小进步能用数字看见，也容易养成习惯。","从短时间开始"],
+ "ハイキング":["徒步","出门 · 自然 · 体验","风景和运动一起享受，也能稍微离开日常。","从附近路线试"],
+ "イラスト":["绘画","独处 · 创作 · 进步","把脑子里的画面变成形状，适合沉浸。","纸和笔就能开始"],
+ "楽器":["乐器","练习 · 表达 · 成就","练得越多能做的越多，也能变成自己的表达。","从免费教材试"],
+ "語学":["外语","知识 · 持续 · 交流","积累容易感受到，也能连到旅行和交流。","一天十分钟就能试"],
+ "ガーデニング":["园艺","疗愈 · 自然 · 持续","看着植物变化、照顾它们，本身就是换心情。","从一个小花盆开始"],
+ "動画編集":["视频剪辑","创作 · 电脑 · 技能","一边做作品，一边练实用技能。","用手机剪也行"],
+ "カフェ巡り":["逛咖啡店","出门 · 发现 · 换心情","只是找一家新店，也像一次小小冒险。","从附近一家开始"],
+ "美術館巡り":["逛美术馆","安静 · 发现 · 文化","按自己的节奏看作品，刺激感受力。","先看一个展览也行"],
+ "キャンプ":["露营","自然 · 体验 · 非日常","稍微离开日常，享受体验本身。","可以从日间露营开始"],
+ "ゲーム":["游戏","沉浸 · 交流 · 成就","一个人或和别人都能玩，类型也很广。","从短篇作品试"],
+ "DIY":["手工改造","创作 · 实用 · 成就","自己做的东西能用在生活里，这就是魅力。","从小制作开始"],
+ "陶芸":["陶艺","创作 · 动手 · 沉浸","用手碰土、做出形状，是数字之外的触感。","可以从一日体验课开始"],
+ "書道・筆文字":["书法","安静 · 表达 · 进步","一边追求字的美，一边享受专注的时间。","工具少也能开始"],
+ "コーヒー・紅茶":["咖啡与茶","探究 · 感觉 · 日常","豆子、茶叶和冲法越试越深。","先从平时那一杯开始比较"],
+ "パン・お菓子作り":["烘焙","创作 · 实用 · 实验","不只是复刻食谱，也可以改配比做实验。","从简单食谱开始"],
+ "釣り":["钓鱼","自然 · 专注 · 体验","安静等待，和鱼上钩那一瞬间的紧张都能享受。","可以从管理钓场开始"],
+ "野鳥観察":["观鸟","自然 · 发现 · 收集","就算在附近公园找鸟，日常景色也会不一样。","没有望远镜也能开始"],
+ "星空観察":["观星","安静 · 自然 · 探究","看着夜空了解星星和宇宙，节奏很慢的爱好。","晴夜出门看看就行"],
+ "鉱物・化石集め":["矿物与化石","收集 · 探究 · 发现","从样子查到产地和成分，会越来越深。","先从一枚开始"],
+ "御朱印・寺社巡り":["神社寺院盖章巡礼","出门 · 文化 · 收集","把走路和历史、建筑组合在一起。","从附近神社开始"],
+ "博物館巡り":["逛博物馆","知识 · 发现 · 出门","科学、历史、民俗，都容易找到兴趣入口。","只看感兴趣的展也行"],
+ "美術・映画鑑賞":["看艺术与电影","感性 · 发现 · 独处","品味作品、想想感受，就已经很好玩。","一部电影或一件作品就够"],
+ "映画制作・映像撮影":["拍电影 / 拍视频","创作 · 表达 · 技术","从拍摄、结构到剪辑，自己把作品搭起来。","用手机拍就能开始"],
+ "ブログ・エッセイ":["博客 / 随笔","独处 · 表达 · 知识","把喜欢的事写成文字整理，也会发现新兴趣。","不公开的备忘也可以"],
+ "プログラミング":["编程","电脑 · 创作 · 攻略","用代码做出机制，在试错里完成它。","从小的网页作品开始"],
+ "3Dモデリング":["3D 建模","电脑 · 创作 · 技术","把立体设计出来，适合喜欢制作的人。","免费软件就能试"],
+ "電子工作":["电子制作","创作 · 实验 · 技术","把零件组合起来，做出真的会动的东西。","从小套件开始"],
+ "謎解き・脱出ゲーム":["解谜 / 密室","攻略 · 发现 · 交流","把信息拼起来找答案，短时间也能沉浸。","参加一次就行"],
+ "将棋・囲碁":["将棋 / 围棋","策略 · 进步 · 对战","越想越深，棋谱和成绩也容易看见成长。","用 App 免费对局开始"],
+ "カードゲーム":["卡牌游戏","策略 · 交流 · 收集","对战、组套、收集，玩法很好扩展。","从新手规则开始"],
+ "模型・プラモデル":["模型","制作 · 收集 · 沉浸","组装、上色，再看着完成品。","从小套件开始"],
+ "レザークラフト":["皮具手工","动手 · 创作 · 实用","加工皮革，做出能用的钱包或小物。","从简单小物套件开始"],
+ "編み物・刺繍":["编织 / 刺绣","动手 · 疗愈 · 创作","享受动手的节奏，和一点点成形的过程。","从小作品开始"],
+ "ダンス":["舞蹈","运动 · 表达 · 交流","跟着音乐动身体，运动和表达都能有。","看视频一个人也能试"],
+ "サイクリング":["骑行","出门 · 运动 · 探索","移动本身就是玩，也可以去探没走过的路。","从附近骑 30 分钟开始"],
+ "地図・街歩き":["地图与街巷散步","探索 · 发现 · 出门","看地图、走没走过的路，重新发现身边的地方。","从附近一条陌生路开始"],
+ "ボルダリング":["抱石攀岩","运动 · 攻略 · 成就","用身体想路线，像游戏一样的运动。","从新手体验开始"],
+ "料理研究・食べ比べ":["品鉴对比","探究 · 发现 · 实用","比较同一道菜或饮料，找不同就很深。","从身边的商品开始"],
+ "香水・香り探究":["香气探究","感觉 · 发现 · 收集","比较气味差异，把真正的偏好挖出来。","从试香开始就很轻松"],
+ "アクアリウム":["水族箱","自然 · 观察 · 创作","布置水槽，观察生物和水草的变化。","可以从小型缸开始考虑"],
+ "家庭菜園":["家庭种植","自然 · 实用 · 持续","从种到收的变化很清楚，也能上桌。","从阳台花盆开始"],
+ "手帳・ノート術":["手账 / 笔记","整理 · 创作 · 持续","不只记行程，记录和整理想法本身就能玩。","一本纸本就开始"],
+ "パズル・数独":["拼图 / 数独","独处 · 攻略 · 低成本","安静想下去直到答案出现，短时间也有满足感。","从免费题目开始"],
+ "歌・音楽鑑賞":["唱歌 / 听音乐","表达 · 感觉 · 疗愈","听或唱都能换心情，也容易连到别的爱好。","从喜欢的一首歌开始"],
+ "旅行":["旅行","出门 · 发现 · 体验","走在陌生地方，这件事本身就是刺激。","从附近短途开始"]
+}
+};
 
 const hobbies=[
- ["読書","一人・低コスト・知識",["I","N"],"静かな時間に没頭しながら、知らない世界を広げられる。","今夜からでも始めやすい"],
- ["写真散歩","一人・外出・発見",["I","E"],"散歩に「探す」という目的が加わり、道具が少なくても始めやすい。","スマホだけで試せる"],
- ["料理","創作・実用・上達",["S","F"],"作ったものが成果として残るので、上達も実感しやすい。","家にある材料から試せる"],
- ["ボードゲーム","交流・戦略・発見",["E","T"],"人と遊びながら考える楽しさを味わえる。","友人との1回から試せる"],
- ["筋トレ","上達・習慣・記録",["S","T"],"小さな成長を数字で確認しやすく、習慣にもつなげやすい。","短時間から始められる"],
- ["ハイキング","外出・自然・体験",["E","S"],"景色と運動をまとめて楽しめ、日常から少し離れられる。","近場のコースから試せる"],
- ["イラスト","一人・創作・上達",["I","N"],"頭の中のイメージを形にする、没頭型の趣味。","紙とペンからでも始められる"],
- ["楽器","練習・表現・達成",["I","F"],"練習するほどできることが増え、自分なりの表現にもつながる。","無料教材から試せる"],
- ["語学","知識・継続・交流",["N","J"],"積み上げが実感しやすく、旅行や交流など別の楽しみにも広げられる。","1日10分から試せる"],
- ["ガーデニング","癒やし・自然・継続",["S","F"],"植物の変化を眺めたり世話したりすること自体が気分転換になる。","小さな鉢から試せる"],
- ["動画編集","創作・PC・スキル",["N","T"],"作品を作りながら、実用的なスキルも磨ける。","スマホ編集からでも試せる"],
- ["カフェ巡り","外出・発見・気分転換",["E","F"],"新しい店を探すだけでも、小さな冒険になる。","近所の1店から試せる"],
- ["美術館巡り","静か・発見・文化",["I","N"],"自分のペースで作品を眺め、感性を刺激できる。","まず1展示だけでもOK"],
- ["キャンプ","自然・体験・非日常",["E","S"],"日常から少し離れて、体験そのものを楽しめる。","デイキャンプから試せる"],
- ["ゲーム","没頭・交流・達成",["I","T"],"一人でも誰かとでも遊べ、ジャンルの幅も広い。","短時間の作品から試せる"],
- ["DIY","創作・実用・達成",["S","T"],"自分で作ったものが生活で使えるのが魅力。","小さな工作から試せる"],
- ["陶芸","創作・手作業・没頭",["I","S","F"],"土に触れながら形を作る、デジタルとは違う手触りのある趣味。","1日体験教室から試せる"],
- ["書道・筆文字","静か・表現・上達",["I","S","F"],"文字の美しさを追いながら、集中する時間も楽しめる。","道具を少なく始められる"],
- ["コーヒー・紅茶","探究・感覚・日常",["I","S","N"],"豆や茶葉、淹れ方の違いを試すほど奥深くなる。","いつもの一杯から比べてみる"],
- ["パン・お菓子作り","創作・実用・実験",["S","F","T"],"レシピを再現するだけでなく、配合を変える実験もできる。","簡単なレシピから試せる"],
- ["釣り","自然・集中・体験",["I","S"],"静かに待つ時間と、魚がかかった瞬間の緊張感を両方楽しめる。","管理釣り場から試せる"],
- ["野鳥観察","自然・発見・収集",["I","N","S"],"身近な公園でも鳥を探すだけで、いつもの景色が少し変わる。","双眼鏡なしでも始められる"],
- ["星空観察","静か・自然・探究",["I","N"],"夜空を眺めながら星や宇宙について知る、ゆったりした趣味。","晴れた夜に外へ出るだけでもOK"],
- ["鉱物・化石集め","収集・探究・発見",["I","N","S"],"石の見た目から産地や成分まで調べ始めると奥深い。","まずは1個から集められる"],
- ["御朱印・寺社巡り","外出・文化・収集",["E","S","N"],"街歩きと歴史・建築を組み合わせて楽しめる。","近所の寺社から始められる"],
- ["博物館巡り","知識・発見・外出",["I","N","S"],"科学・歴史・民俗など、興味の入口を見つけやすい。","気になる展示だけでも楽しめる"],
- ["美術・映画鑑賞","感性・発見・一人",["I","N","F"],"作品を味わったり感想を考えたりするだけでも楽しめる。","1本・1作品から試せる"],
- ["映画制作・映像撮影","創作・表現・技術",["E","N","T"],"撮影・構成・編集まで、自分で作品を組み立てられる。","スマホ撮影から始められる"],
- ["ブログ・エッセイ","一人・表現・知識",["I","N","F"],"好きなことを文章にして整理すると、新しい興味も見つかる。","非公開メモからでも始められる"],
- ["プログラミング","PC・創作・攻略",["I","N","T"],"コードで仕組みを作り、試行錯誤しながら完成させる楽しさがある。","小さなWeb作品から試せる"],
- ["3Dモデリング","PC・創作・技術",["I","N","T"],"立体を設計して形にする、制作好き向けのデジタル趣味。","無料ソフトから試せる"],
- ["電子工作","創作・実験・技術",["I","S","T"],"部品を組み合わせて実際に動くものを作る面白さがある。","小さなキットから試せる"],
- ["謎解き・脱出ゲーム","攻略・発見・交流",["E","N","T"],"情報を組み合わせて答えを見つける、短時間でも没頭できる趣味。","1回参加するだけでもOK"],
- ["将棋・囲碁","戦略・上達・対戦",["I","T","N"],"考えるほど奥が深く、棋譜や成績から成長も追いやすい。","アプリで無料対局から試せる"],
- ["カードゲーム","戦略・交流・収集",["E","T","N"],"対戦・デッキ構築・カード収集など、楽しみ方を広げやすい。","初心者向けルールから試せる"],
- ["模型・プラモデル","制作・収集・没頭",["I","S","T"],"組み立てや塗装に集中し、完成品を眺めるところまで楽しめる。","小さなキットから始められる"],
- ["レザークラフト","手作業・創作・実用",["I","S","T"],"革を加工して財布や小物など、自分で使えるものを作れる。","簡単な小物キットから試せる"],
- ["編み物・刺繍","手作業・癒やし・創作",["I","F","S"],"手を動かすリズムと、少しずつ形になっていく過程を楽しめる。","小さな作品から始められる"],
- ["ダンス","運動・表現・交流",["E","F","S"],"音楽に合わせて体を動かし、運動と表現の両方を楽しめる。","動画を見ながら一人でも試せる"],
- ["サイクリング","外出・運動・探索",["E","S","I"],"移動そのものが遊びになり、知らない道を探索できる。","近所を30分走るところから"],
- ["地図・街歩き","探索・発見・外出",["I","N","S"],"地図を眺めたり知らない道を歩いたりして、身近な場所を再発見する。","近所の知らない道から試せる"],
- ["ボルダリング","運動・攻略・達成",["E","T","S"],"体を使いながらルート攻略を考える、ゲーム感覚の運動。","初心者体験から試せる"],
- ["料理研究・食べ比べ","探究・発見・実用",["S","N","F"],"同じ料理や飲み物を比べて、違いを探すだけでも奥深い。","身近な商品から試せる"],
- ["香水・香り探究","感覚・発見・収集",["I","N","F"],"香りの違いを比べながら、自分の好みを掘り下げられる。","試香から気軽に試せる"],
- ["アクアリウム","自然・観察・創作",["I","S","F"],"水槽の環境を整え、生き物や水草の変化を観察する趣味。","小型水槽から検討できる"],
- ["家庭菜園","自然・実用・継続",["S","F","N"],"育てる・収穫するまでの変化が分かりやすく、食卓にもつながる。","ベランダの鉢から始められる"],
- ["手帳・ノート術","整理・創作・継続",["I","J","S"],"予定だけでなく、記録やアイデア整理そのものを楽しめる。","紙1冊から始められる"],
- ["パズル・数独","一人・攻略・低コスト",["I","T","N"],"静かに考え続けて答えにたどり着く、短時間でも満足感のある趣味。","無料問題から試せる"]
+ ["読書","一人・低コスト・知識",["I","N"]],
+ ["写真散歩","一人・外出・発見",["I","E"]],
+ ["料理","創作・実用・上達",["S","F"]],
+ ["ボードゲーム","交流・戦略・発見",["E","T"]],
+ ["筋トレ","上達・習慣・記録",["S","T"]],
+ ["ハイキング","外出・自然・体験",["E","S"]],
+ ["イラスト","一人・創作・上達",["I","N"]],
+ ["楽器","練習・表現・達成",["I","F"]],
+ ["語学","知識・継続・交流",["N","J"]],
+ ["ガーデニング","癒やし・自然・継続",["S","F"]],
+ ["動画編集","創作・PC・スキル",["N","T"]],
+ ["カフェ巡り","外出・発見・気分転換",["E","F"]],
+ ["美術館巡り","静か・発見・文化",["I","N"]],
+ ["キャンプ","自然・体験・非日常",["E","S"]],
+ ["ゲーム","没頭・交流・達成",["I","T"]],
+ ["DIY","創作・実用・達成",["S","T"]],
+ ["陶芸","創作・手作業・没頭",["I","S","F"]],
+ ["書道・筆文字","静か・表現・上達",["I","S","F"]],
+ ["コーヒー・紅茶","探究・感覚・日常",["I","S","N"]],
+ ["パン・お菓子作り","創作・実用・実験",["S","F","T"]],
+ ["釣り","自然・集中・体験",["I","S"]],
+ ["野鳥観察","自然・発見・収集",["I","N","S"]],
+ ["星空観察","静か・自然・探究",["I","N"]],
+ ["鉱物・化石集め","収集・探究・発見",["I","N","S"]],
+ ["御朱印・寺社巡り","外出・文化・収集",["E","S","N"]],
+ ["博物館巡り","知識・発見・外出",["I","N","S"]],
+ ["美術・映画鑑賞","感性・発見・一人",["I","N","F"]],
+ ["映画制作・映像撮影","創作・表現・技術",["E","N","T"]],
+ ["ブログ・エッセイ","一人・表現・知識",["I","N","F"]],
+ ["プログラミング","PC・創作・攻略",["I","N","T"]],
+ ["3Dモデリング","PC・創作・技術",["I","N","T"]],
+ ["電子工作","創作・実験・技術",["I","S","T"]],
+ ["謎解き・脱出ゲーム","攻略・発見・交流",["E","N","T"]],
+ ["将棋・囲碁","戦略・上達・対戦",["I","T","N"]],
+ ["カードゲーム","戦略・交流・収集",["E","T","N"]],
+ ["模型・プラモデル","制作・収集・没頭",["I","S","T"]],
+ ["レザークラフト","手作業・創作・実用",["I","S","T"]],
+ ["編み物・刺繍","手作業・癒やし・創作",["I","F","S"]],
+ ["ダンス","運動・表現・交流",["E","F","S"]],
+ ["サイクリング","外出・運動・探索",["E","S","I"]],
+ ["地図・街歩き","探索・発見・外出",["I","N","S"]],
+ ["ボルダリング","運動・攻略・達成",["E","T","S"]],
+ ["料理研究・食べ比べ","探究・発見・実用",["S","N","F"]],
+ ["香水・香り探究","感覚・発見・収集",["I","N","F"]],
+ ["アクアリウム","自然・観察・創作",["I","S","F"]],
+ ["家庭菜園","自然・実用・継続",["S","F","N"]],
+ ["手帳・ノート術","整理・創作・継続",["I","J","S"]],
+ ["パズル・数独","一人・攻略・低コスト",["I","T","N"]]
 ];
 
-let idx=0,score={A:0,B:0,C:0},trait={I:0,E:0,N:0,S:0,T:0,F:0},history=[];
+const pairs={
+ "読書":["美術館巡り","語学"],"写真散歩":["ハイキング","カフェ巡り"],"料理":["ガーデニング","DIY"],"ボードゲーム":["ゲーム","カフェ巡り"],"筋トレ":["ハイキング","楽器"],"ハイキング":["写真散歩","キャンプ"],"イラスト":["動画編集","美術館巡り"],"楽器":["歌・音楽鑑賞","ゲーム"],"語学":["旅行","読書"],"ガーデニング":["料理","写真散歩"],"動画編集":["写真散歩","イラスト"],"カフェ巡り":["写真散歩","読書"],"美術館巡り":["写真散歩","イラスト"],"キャンプ":["ハイキング","写真散歩"],"ゲーム":["ボードゲーム","動画編集"],"DIY":["料理","ガーデニング"]
+};
+
+let lang = localStorage.getItem("hobbyLang") || "ja";
+let idx=0,score={A:0,B:0,C:0},trait={I:0,E:0,N:0,S:0,T:0,F:0},history=[],lastRanked=null,lastType=null;
 const $=id=>document.getElementById(id);
+const t=()=>I18N[lang];
+const htxt=key=> (HOBBY_I18N[lang]&&HOBBY_I18N[lang][key]) || HOBBY_I18N.ja[key];
+
+function applyStaticI18n(){
+ const d=t();
+ document.documentElement.lang=d.htmlLang;
+ document.title=d.title;
+ document.querySelector('meta[name="description"]').setAttribute("content",d.desc);
+ document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=d[el.dataset.i18n]});
+ document.querySelectorAll("[data-i18n-html]").forEach(el=>{el.innerHTML=d[el.dataset.i18nHtml]});
+ document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+}
+
+function setLang(next){
+ lang=next;
+ localStorage.setItem("hobbyLang",lang);
+ applyStaticI18n();
+ if(!$("quizCard").classList.contains("hidden")) showQuestion();
+ if(!$("resultCard").classList.contains("hidden") && lastRanked) renderResultView();
+}
 
 function startQuiz(){
- $("startCard").classList.add("hidden");$("quizCard").classList.remove("hidden");idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0};history=[];showQuestion();window.scrollTo({top:0,behavior:"smooth"});
+ $("startCard").classList.add("hidden");$("quizCard").classList.remove("hidden");
+ idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0};history=[];lastRanked=null;
+ showQuestion();window.scrollTo({top:0,behavior:"smooth"});
 }
 function showQuestion(){
- const x=questions[idx];$("count").textContent=`${idx+1} / ${questions.length}`;$("bar").style.width=(idx/questions.length*100)+"%";$("question").textContent=x.q;$("answers").innerHTML="";
+ const x=t().questions[idx];
+ $("count").textContent=`${idx+1} / ${t().questions.length}`;
+ $("bar").style.width=(idx/t().questions.length*100)+"%";
+ $("question").textContent=x.q;$("answers").innerHTML="";
  x.a.forEach((a,n)=>{const b=document.createElement("button");b.className="answer";b.innerHTML=`<b>${a[0]}　${a[1]}</b><small>${a[2]}</small>`;b.onclick=()=>answer(a[0],n);$("answers").appendChild(b)});
 }
 function answer(letter,n){
@@ -192,7 +523,7 @@ function answer(letter,n){
  if(n===2){trait.N++;trait.F++}
  history.push({letter,n});
  idx++;
- if(idx<questions.length)showQuestion();else showResult();
+ if(idx<t().questions.length)showQuestion();else showResult();
 }
 function goBack(){
  if(idx===0)return;
@@ -209,47 +540,48 @@ function goBack(){
 function showResult(){
  $("quizCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
  const ie=trait.I>=trait.E?"I":"E",ns=trait.N>=trait.S?"N":"S",tf=trait.T>=trait.F?"T":"F",jp=score.A>=score.C?"J":"P";
- const type=ie+ns+tf+jp;
- const titles={INTJ:"静かな探究者",INTP:"自由な研究者",ENTJ:"挑戦する開拓者",ENTP:"新しい刺激のハンター",INFJ:"世界を深く味わう人",INFP:"感性で探すクリエイター",ENFJ:"人と楽しむプロデューサー",ENFP:"好奇心の冒険家",ISTJ:"コツコツ極める職人",ISFJ:"暮らしを楽しむ人",ESTJ:"行動派チャレンジャー",ESFJ:"みんなで楽しむ人",ISTP:"試して学ぶ実践派",ISFP:"マイペースな表現者",ESTP:"体験重視のアクティブ派",ESFP:"楽しさを広げるエンターテイナー"};
- const intro={I:"一人の時間を使って深く楽しめる趣味",E:"人や外の世界から刺激をもらえる趣味",N:"新しい発見や想像力を使える趣味",S:"実際に触ったり体験したりできる趣味",T:"上達・攻略・仕組みを楽しめる趣味",F:"感性・癒やし・人とのつながりを楽しめる趣味"};
- $("resultType").textContent=`あなたの趣味タイプ　${type}`;$("resultTitle").textContent=titles[type];
- $("resultText").textContent=`あなたは${intro[ie]}と相性がよさそう。さらに、${intro[ns]}、${intro[tf]}も趣味選びのポイントになりそうです。`;
- $("tags").innerHTML=[ie==="I"?"ひとり時間":"人と楽しむ",ns==="N"?"新しい発見":"体験重視",tf==="T"?"上達・攻略":"癒やし・表現",jp==="J"?"コツコツ型":"自由に試す"].map(t=>`<span class="tag">${t}</span>`).join("");
-
- const ranked=hobbies.map((h,i)=>{
+ lastType=ie+ns+tf+jp;
+ lastRanked=hobbies.map((h,i)=>{
   let s=50;
   if(h[2].includes(ie))s+=13;if(h[2].includes(ns))s+=13;if(h[2].includes(tf))s+=11;
   if(score.A>score.B&&h[1].includes("一人"))s+=7;
   if(score.B>score.A&&h[1].includes("交流"))s+=7;
   if(score.C>score.A&&h[1].includes("発見"))s+=7;
-  return {h,s,i};
+  return {key:h[0],tags:h[1],s,i};
  }).sort((a,b)=>b.s-a.s || Math.random()-.5).slice(0,5);
-
- $("hobbies").innerHTML=ranked.map((r,i)=>`<article class="hobby"><div class="hobby-head"><div><span class="rank">#${i+1}</span> <span class="hobby-name">${r.h[0]}</span></div><span class="match">${Math.min(99,r.s)}%</span></div><div class="hobby-meta">${r.h[1].split("・").map(x=>`<span class="mini">${x}</span>`).join("")}</div><p>${r.h[3]}</p></article>`).join("");
-
- const top=ranked[0].h;
- $("next").innerHTML=`<strong>${top[0]}</strong><p>${top[4]}。最初から本格的に始める必要はありません。「1回だけ試す」くらいで、自分に合うか確かめてみよう。</p>`;
-
- const pairs={
-  "読書":["美術館巡り","語学"],"写真散歩":["ハイキング","カフェ巡り"],"料理":["ガーデニング","DIY"],"ボードゲーム":["ゲーム","カフェ巡り"],"筋トレ":["ハイキング","楽器"],"ハイキング":["写真散歩","キャンプ"],"イラスト":["動画編集","美術館巡り"],"楽器":["歌・音楽鑑賞","ゲーム"],"語学":["旅行","読書"],"ガーデニング":["料理","写真散歩"],"動画編集":["写真散歩","イラスト"],"カフェ巡り":["写真散歩","読書"],"美術館巡り":["写真散歩","イラスト"],"キャンプ":["ハイキング","写真散歩"],"ゲーム":["ボードゲーム","動画編集"],"DIY":["料理","ガーデニング"]
- };
- const pair=pairs[top[0]]||["写真散歩","読書"];
- $("discovery").innerHTML=pair.map((x,i)=>`<div><b>${i===0?"今の趣味に近い方向":"少し違う方向"} → ${x}</b><span>${i===0?"今の「好き」を残したまま、新鮮さを足す。":"あえてジャンルをずらして、新しい楽しみ方を探す。"}</span></div>`).join("");
-
- const tips=[
- "最初から道具を揃えすぎない。まず無料・レンタル・体験版などで1回試して、ハマったら深掘りしよう。",
- "「向いているか」より「もう一回やりたいか」で判断する。上達しなくても楽しいなら、それは十分いい趣味。",
- "今の趣味を捨てなくてもいい。週1回だけ新しい趣味を混ぜると、マンネリ対策にもなる。",
- "趣味に成果や収益まで求めなくてOK。誰にも見せない、自分だけの時間があってもいい。"
- ];
- $("tip").textContent=tips[(score.A*2+score.B*3+score.C)%tips.length];
+ renderResultView();
  window.scrollTo({top:0,behavior:"smooth"});
 }
-async function shareResult(){
- const text=`MBTI趣味診断をやってみた！\n${$("resultType").textContent}\n${$("resultTitle").textContent}\nあなたに合いそうな趣味：${[...document.querySelectorAll(".hobby-name")].slice(0,3).map(x=>x.textContent).join("、")}\n`;
- if(navigator.share){try{await navigator.share({title:"MBTI 趣味診断",text,url:location.href})}catch(e){}}
- else if(navigator.clipboard){await navigator.clipboard.writeText(text+location.href);alert("結果をコピーしました！")}
+function renderResultView(){
+ const d=t();
+ const type=lastType;
+ const ie=type[0],ns=type[1],tf=type[2],jp=type[3];
+ $("resultType").textContent=`${d.typePrefix}${type}`;
+ $("resultTitle").textContent=d.titles[type];
+ $("resultText").textContent=d.resultLead(d.intro[ie],d.intro[ns],d.intro[tf]);
+ $("tags").innerHTML=[d.tags[ie],d.tags[ns],d.tags[tf],d.tags[jp]].map(x=>`<span class="tag">${x}</span>`).join("");
+ $("hobbies").innerHTML=lastRanked.map((r,i)=>{
+  const hx=htxt(r.key);
+  return `<article class="hobby"><div class="hobby-head"><div><span class="rank">#${i+1}</span> <span class="hobby-name">${hx[0]}</span></div><span class="match">${Math.min(99,r.s)}%</span></div><div class="hobby-meta">${hx[1].split(/[・·]/).map(x=>x.trim()&&`<span class="mini">${x.trim()}</span>`).join("")}</div><p>${hx[2]}</p></article>`;
+ }).join("");
+ const topKey=lastRanked[0].key;
+ const top=htxt(topKey);
+ $("next").innerHTML=`<strong>${top[0]}</strong><p>${top[3]}。${d.nextBody}</p>`;
+ const pair=pairs[topKey]||["写真散歩","読書"];
+ $("discovery").innerHTML=pair.map((x,i)=>{
+  const name=htxt(x)[0];
+  return `<div><b>${i===0?d.discNear:d.discFar} → ${name}</b><span>${i===0?d.discNearD:d.discFarD}</span></div>`;
+ }).join("");
+ $("tip").textContent=d.tips[(score.A*2+score.B*3+score.C)%d.tips.length];
 }
+async function shareResult(){
+ const d=t();
+ const names=[...document.querySelectorAll(".hobby-name")].slice(0,3).map(x=>x.textContent).join(lang==="en"? ", " : "、");
+ const text=d.shareText($("resultType").textContent,$("resultTitle").textContent,names);
+ if(navigator.share){try{await navigator.share({title:d.shareTitle,text,url:location.href})}catch(e){}}
+ else if(navigator.clipboard){await navigator.clipboard.writeText(text+location.href);alert(d.copied)}
+}
+applyStaticI18n();
 </script>
 </body>
 </html>
