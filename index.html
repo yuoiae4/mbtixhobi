@@ -72,6 +72,8 @@ footer .foot-title{font-weight:800;color:#7d7780;margin-bottom:10px}
 footer .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 16px;margin:10px 0 14px}
 footer .foot-links a{color:#7a63d4;text-decoration:none;font-weight:700}
 footer .foot-links a:hover{text-decoration:underline}
+footer .foot-links a.coffee{color:#c2782a}
+.coffee-btn{display:block;margin:14px auto 0;width:fit-content;max-width:100%;text-align:center;text-decoration:none;color:#7a4a12;background:#fff6e8;border:1px solid #f0d3a6;border-radius:99px;padding:10px 18px;font-size:13px;font-weight:800}
 footer .fine{color:#b0aab2;font-size:11px;line-height:1.9;max-width:580px;margin:0 auto}
 .hidden{display:none!important}
 @media(max-width:560px){.benefits{grid-template-columns:1fr}.discovery{grid-template-columns:1fr}.actions,.mode-actions{grid-template-columns:1fr}.card{padding:24px 20px}.hero{padding:28px 6px 30px}h1{font-size:clamp(32px,10vw,46px)}}
@@ -171,6 +173,7 @@ footer .fine{color:#b0aab2;font-size:11px;line-height:1.9;max-width:580px;margin
   <button class="primary" onclick="shareResult()" data-i18n="shareBtn"></button>
   <button class="secondary" onclick="location.reload()" data-i18n="retryBtn"></button>
  </div>
+ <a class="coffee-btn" href="https://buymeacoffee.com/myunaua231hnj" target="_blank" rel="noopener" data-i18n="linkCoffee"></a>
  <p class="note" data-i18n-html="note"></p>
 </section>
 <footer>
@@ -178,6 +181,7 @@ footer .fine{color:#b0aab2;font-size:11px;line-height:1.9;max-width:580px;margin
  <div class="foot-links">
   <a href="https://yuoiae4.github.io/mbti-steam/" target="_blank" rel="noopener" data-i18n="linkGames"></a>
   <a href="https://yuoiae4.github.io/mbtixlove/" target="_blank" rel="noopener" data-i18n="linkLove"></a>
+  <a class="coffee" href="https://buymeacoffee.com/myunaua231hnj" target="_blank" rel="noopener" data-i18n="linkCoffee"></a>
  </div>
  <div class="fine" data-i18n-html="footerFine"></div>
 </footer>
@@ -201,7 +205,7 @@ ja: {
  fullBtn:"詳細診断", fullHint:"16問で属性まで見る",
  modeQuick:"簡易", modeFull:"詳細",
  homeBtn:"ホーム",
- linkGames:"ゲーム診断", linkLove:"恋愛診断",
+ linkGames:"ゲーム診断", linkLove:"恋愛診断", linkCoffee:"コーヒーをおごる",
  footerFine:"MBTI / Myers-Briggs Type Indicator は登録商標に関わる枠組みです。本ページは公式検査ではなく、趣味選びの補助用チェックです。<br>結果は適性の断定ではありません。回答はサーバーへ送信しません。",
  secHobbies:"適合度の高い候補", secHobbiesDesc:"今回の回答と傾向から算出した相対スコアです。絶対評価ではありません。",
  secDims:"回答から見た傾向", secDimsDesc:"公式タイプ判定ではありません。今回答えた設問への偏りです。",
@@ -268,7 +272,7 @@ en: {
  fullBtn:"Full quiz", fullHint:"16 questions",
  modeQuick:"Short", modeFull:"Full",
  homeBtn:"Home",
- linkGames:"Game quiz", linkLove:"Love quiz",
+ linkGames:"Game quiz", linkLove:"Love quiz", linkCoffee:"Buy me a coffee",
  footerFine:"MBTI / Myers-Briggs Type Indicator is a trademarked framework. This page is not an official instrument.<br>Results are not a diagnosis. Answers stay in the browser.",
  secHobbies:"Higher-fit options", secHobbiesDesc:"Relative scores from this session — not an absolute ranking.",
  secDims:"Leanings in this session", secDimsDesc:"Not an official type result. Only the bias in these eight answers.",
@@ -335,7 +339,7 @@ zh: {
  fullBtn:"详细诊断", fullHint:"16 题看属性",
  modeQuick:"简易", modeFull:"详细",
  homeBtn:"首页",
- linkGames:"游戏诊断", linkLove:"恋爱诊断",
+ linkGames:"游戏诊断", linkLove:"恋爱诊断", linkCoffee:"请我喝杯咖啡",
  footerFine:"MBTI 是 Myers-Briggs Type Indicator 的简称。本页不是官方测试，仅供娱乐。<br>结果并不定义你的性格。无需注册，回答不会发送到服务器。",
  secHobbies:"可能适合你的兴趣", secHobbiesDesc:"根据 MBTI 倾向和本次回答，从常见到稍冷门的兴趣，按契合度排列。",
  secDims:"这次回答的倾向", secDimsDesc:"来自本次问答的快照，不是正式 MBTI 结果。",
