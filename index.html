@@ -3,8 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="今ある趣味、ちょっと飽きてない？MBTIとあなたの好みから、次に試したい新しい趣味を探す無料診断。登録不要。">
+<meta name="description" content="今ある趣味、ちょっと飽きてない？MBTIと追加の好みから、次に試したい趣味を探す診断。登録不要。">
 <meta name="theme-color" content="#f8f6ff">
+<meta property="og:title" content="MBTI 趣味診断 | 今ある趣味、飽きてない？">
+<meta property="og:description" content="今ある趣味、ちょっと飽きてない？MBTIと追加の好みから、次に試したい趣味を探します。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <title>MBTI 趣味診断 | 今ある趣味、飽きてない？</title>
 <style>
 :root{
@@ -18,7 +22,10 @@ body{margin:0;color:var(--ink);background:
  radial-gradient(circle at 100% 8%,#fff0f4 0,transparent 25%),var(--bg);
  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans JP","Noto Sans SC","Yu Gothic",sans-serif}
 button{font:inherit}.wrap{max-width:780px;margin:auto;padding:0 18px 70px}
-.lang-bar{display:flex;justify-content:flex-end;gap:6px;padding:16px 0 0}
+.top-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 0 0;flex-wrap:wrap}
+.home-btn{border:1px solid var(--line);background:#fff;color:#5d5862;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.home-btn:hover{border-color:#b9a9f5;color:var(--accent)}
+.lang-bar{display:flex;justify-content:flex-end;gap:6px}
 .lang-btn{border:1px solid var(--line);background:#fff;color:#6b6570;border-radius:99px;padding:6px 12px;font-size:12px;font-weight:800;cursor:pointer}
 .lang-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .hero{text-align:center;padding:24px 10px 30px}
@@ -33,28 +40,47 @@ h2{font-size:24px;line-height:1.45;margin:8px 0 12px}.sub{color:var(--muted);lin
 .benefit{padding:15px 10px;border:1px solid var(--line);border-radius:17px;background:#fff}.benefit b{display:block;font-size:13px}.benefit span{font-size:11px;color:var(--muted);display:block;margin-top:4px}
 .primary,.secondary{width:100%;border:0;border-radius:16px;padding:16px 18px;font-weight:850;cursor:pointer}
 .primary{background:var(--accent);color:#fff}.primary:hover{background:#6245dc}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.mode-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mode-actions small{display:block;font-weight:650;opacity:.85;margin-top:4px;font-size:11px}
 .progress-wrap{display:flex;align-items:center;gap:12px;margin-bottom:23px}.progress{height:7px;background:#ece8ee;border-radius:99px;flex:1;overflow:hidden}.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}.count{font-size:11px;color:var(--muted);font-weight:800;white-space:nowrap}
 .quiz-back{margin-top:15px;width:100%;border:0;background:transparent;color:#8a838d;font-size:12px;font-weight:750;cursor:pointer;padding:8px}.quiz-back:hover{color:var(--accent)}
 .question{font-size:25px;margin:0 0 19px}.answers{display:grid;gap:10px}.answer{text-align:left;border:1px solid var(--line);background:#fff;border-radius:17px;padding:16px 17px;cursor:pointer;transition:.16s}.answer:hover{border-color:#b9a9f5;background:#fcfaff;transform:translateY(-1px)}.answer b{font-size:15px}.answer small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:5px}
-.result-kicker{color:var(--accent);font-size:13px;font-weight:850}.result-title{font-size:34px;line-height:1.2;margin:5px 0 9px}.result-lead{color:#5f5962;line-height:1.85;margin:0}
+.result-kicker{color:var(--accent);font-size:13px;font-weight:850}.result-attrs{color:#6f6974;font-size:12px;font-weight:750;margin-top:4px}.result-title{font-size:34px;line-height:1.2;margin:8px 0 9px}.result-lead{color:#5f5962;line-height:1.85;margin:0}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0}.tag{background:var(--soft);color:#654bd0;border-radius:99px;padding:7px 10px;font-size:11px;font-weight:800}
 .section{margin-top:27px}.section h3{font-size:18px;margin:0 0 10px}.section-desc{color:var(--muted);font-size:12px;line-height:1.65;margin:-3px 0 12px}
 .hobbies{display:grid;gap:10px}.hobby{border:1px solid var(--line);border-radius:18px;padding:17px;background:#fff}.hobby-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.rank{color:#8e8791;font-size:11px;font-weight:800}.hobby-name{font-size:17px;font-weight:900}.match{color:var(--accent);font-weight:900;font-size:13px}.hobby-meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.mini{font-size:10px;color:#746c79;background:#f6f3f7;padding:5px 8px;border-radius:99px}.hobby p{font-size:13px;color:#67616a;line-height:1.7;margin:7px 0 0}
 .next{background:linear-gradient(135deg,#faf7ff,#fff8fb);border:1px solid #e5dcfb;border-radius:20px;padding:18px}.next strong{display:block;font-size:16px;margin-bottom:5px}.next p{margin:0;color:#66606a;font-size:13px;line-height:1.7}
 .discovery{display:grid;grid-template-columns:1fr 1fr;gap:10px}.discovery div{padding:14px;border:1px solid var(--line);border-radius:16px}.discovery b{font-size:13px}.discovery span{display:block;color:var(--muted);font-size:11px;line-height:1.55;margin-top:5px}
 .tip{padding:16px;border-radius:17px;background:#fbf9ff;border:1px solid #e7e0ff;color:#625c68;font-size:13px;line-height:1.75}
+.dims{display:grid;gap:10px}.dim{display:grid;grid-template-columns:52px 1fr 52px;align-items:center;gap:8px;font-size:11px;font-weight:800;color:#6f6974}
+.dim-bar{height:8px;background:#ece8ee;border-radius:99px;overflow:hidden;position:relative}
+.dim-bar i{display:block;height:100%;width:50%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px}
+.avoid{display:grid;gap:8px}.avoid-item{padding:13px 15px;border:1px dashed #e3dce8;border-radius:16px;background:#fff;font-size:13px;color:#67616a}
+.avoid-item b{display:block;font-size:14px;color:var(--ink);margin-bottom:3px}
+.plan{display:grid;gap:8px}.plan li{list-style:none;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:13px;line-height:1.6}
+.plan{margin:0;padding:0;counter-reset:step}
+.plan li{counter-increment:step}
+.plan li::before{content:counter(step);display:inline-flex;width:20px;height:20px;margin-right:8px;border-radius:99px;background:var(--soft);color:#654bd0;font-size:11px;font-weight:900;align-items:center;justify-content:center}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.note{text-align:center;color:#99939b;font-size:11px;line-height:1.7;margin:15px 0 0}
-footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
+footer{text-align:center;color:#9a949c;font-size:11px;line-height:1.8;margin-top:34px;padding:0 8px 8px}
+footer .foot-title{font-weight:800;color:#7d7780;margin-bottom:6px}
+footer .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 14px;margin:8px 0 10px}
+footer .foot-links a{color:#7a63d4;text-decoration:none;font-weight:700}
+footer .foot-links a:hover{text-decoration:underline}
+footer .fine{color:#b0aab2;font-size:10px;line-height:1.7;max-width:560px;margin:0 auto}
 .hidden{display:none!important}
-@media(max-width:560px){.benefits{grid-template-columns:1fr}.discovery{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.card{padding:21px}.hero{padding-top:16px}}
+@media(max-width:560px){.benefits{grid-template-columns:1fr}.discovery{grid-template-columns:1fr}.actions,.mode-actions{grid-template-columns:1fr}.card{padding:21px}.hero{padding-top:16px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-<div class="lang-bar">
- <button class="lang-btn active" data-lang="ja" onclick="setLang('ja')">日本語</button>
- <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
- <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+<div class="top-bar">
+ <button type="button" class="home-btn" onclick="goHome()" data-i18n="homeBtn">ホーム</button>
+ <div class="lang-bar">
+  <button class="lang-btn active" data-lang="ja" onclick="setLang('ja')">日本語</button>
+  <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+  <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+ </div>
 </div>
 <section class="hero">
  <div class="badge" data-i18n="badge"></div>
@@ -77,7 +103,10 @@ footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
   <div class="benefit"><b data-i18n="b2t"></b><span data-i18n="b2d"></span></div>
   <div class="benefit"><b data-i18n="b3t"></b><span data-i18n="b3d"></span></div>
  </div>
- <button class="primary" onclick="startQuiz()" data-i18n="startBtn"></button>
+ <div class="mode-actions">
+  <button class="secondary" onclick="startQuiz('quick')"><span data-i18n="quickBtn"></span><small data-i18n="quickHint"></small></button>
+  <button class="primary" onclick="startQuiz('full')"><span data-i18n="fullBtn"></span><small data-i18n="fullHint"></small></button>
+ </div>
 </section>
 
 <section id="quizCard" class="card hidden">
@@ -90,9 +119,16 @@ footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
 
 <section id="resultCard" class="card hidden">
  <div class="result-kicker" id="resultType"></div>
+ <div class="result-attrs" id="resultAttrs"></div>
  <h2 class="result-title" id="resultTitle"></h2>
  <p class="result-lead" id="resultText"></p>
  <div class="tags" id="tags"></div>
+
+ <div class="section">
+  <h3 data-i18n="secDims"></h3>
+  <p class="section-desc" data-i18n="secDimsDesc"></p>
+  <div class="dims" id="dims"></div>
+ </div>
 
  <div class="section">
   <h3 data-i18n="secHobbies"></h3>
@@ -111,6 +147,17 @@ footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
  </div>
 
  <div class="section">
+  <h3 data-i18n="secPlan"></h3>
+  <ol class="plan" id="plan"></ol>
+ </div>
+
+ <div class="section">
+  <h3 data-i18n="secAvoid"></h3>
+  <p class="section-desc" data-i18n="secAvoidDesc"></p>
+  <div class="avoid" id="avoid"></div>
+ </div>
+
+ <div class="section">
   <h3 data-i18n="secTip"></h3>
   <div class="tip" id="tip"></div>
  </div>
@@ -121,45 +168,65 @@ footer{text-align:center;color:#aaa4ab;font-size:11px;margin-top:28px}
  </div>
  <p class="note" data-i18n-html="note"></p>
 </section>
-<footer data-i18n="footer"></footer>
+<footer>
+ <div class="foot-title" data-i18n="footer"></div>
+ <div class="foot-links">
+  <a href="https://yuoiae4.github.io/mbti-steam/" target="_blank" rel="noopener" data-i18n="linkGames"></a>
+  <a href="https://yuoiae4.github.io/mbtixlove/" target="_blank" rel="noopener" data-i18n="linkLove"></a>
+ </div>
+ <div class="fine" data-i18n-html="footerFine"></div>
+</footer>
 </main>
 
 <script>
 const I18N = {
 ja: {
  htmlLang:"ja", title:"MBTI 趣味診断 | 今ある趣味、飽きてない？",
- desc:"今ある趣味、ちょっと飽きてない？MBTIとあなたの好みから、次に試したい新しい趣味を探す無料診断。登録不要。",
- badge:"MBTI × 趣味探し",
+ desc:"今ある趣味、ちょっと飽きてない？MBTIと追加の好みから、次に試したい趣味を探す診断。登録不要。",
+ badge:"MBTI ＋ 追加の属性",
  h1:"今ある趣味、<span>飽きてない？</span>",
- lead:"「最近ちょっとマンネリかも」<br>「何か新しいことを始めたい」<br>そんなときに、MBTIとあなたの好みから<strong>次に試したい趣味</strong>を探します。",
+ lead:"「最近ちょっとマンネリかも」<br>「何か新しいことを始めたい」<br>MBTIに加えて、時間の使い方・求める報酬・始めやすさなどの<strong>追加属性</strong>から、次に試す趣味を絞ります。",
  heroNote:"趣味を変える必要はない。選択肢を増やそう。",
- eyebrow:"NEW HOBBY FINDER", startTitle:"次の「ちょっとやってみたい」を探そう",
- startSub:"「一人で楽しみたい」「外に出たい」「何か作りたい」など、あなたの好みを8問で整理。<br>MBTIだけではなく、今の気分や楽しみ方から、相性のよさそうな趣味を5つ提案します。",
- flow1:"8問に答える", flow2:"趣味タイプをチェック", flow3:"5つの候補を見る",
- b1t:"8問", b1d:"サクッと診断", b2t:"5候補", b2d:"新しい選択肢を発見", b3t:"登録不要", b3d:"その場で結果",
- startBtn:"新しい趣味を探す →", quizEyebrow:"YOUR PREFERENCE", backBtn:"← ひとつ前の質問に戻る",
- secHobbies:"あなたに合いそうな趣味", secHobbiesDesc:"MBTI傾向と今回の回答から、定番から少し変わった趣味まで、相性が高そうな順に並べています。",
- secNext:"まず試すなら", secDiscovery:"今の趣味から広げるなら", secTip:"続けるコツ",
- shareBtn:"結果をシェア", retryBtn:"もう一度診断",
- note:"この診断は「向いている趣味」を断定するものではありません。<br>新しい選択肢を見つけるためのきっかけとして楽しんでください。",
+ eyebrow:"MBTI + EXTRA TRAITS", startTitle:"タイプと、今の条件を重ねて見る",
+ startSub:"結果は「MBTIの4文字」だけではありません。<br>一人か人といるか、体験か思考か、計画か探索か、といった追加属性も使って、相性の高い趣味を5つ出します。",
+ flow1:"簡易8問 / 詳細16問", flow2:"MBTIと属性を確認", flow3:"5つの候補を見る",
+ b1t:"2段階", b1d:"簡易と詳細", b2t:"5候補", b2d:"属性込みで順位付け", b3t:"登録不要", b3d:"その場で結果",
+ startBtn:"新しい趣味を探す →", quizEyebrow:"MBTI + ATTRIBUTES", backBtn:"← ひとつ前の質問に戻る",
+ quickBtn:"簡易診断", quickHint:"8問で傾向を見る",
+ fullBtn:"詳細診断", fullHint:"16問で属性まで見る",
+ modeQuick:"簡易", modeFull:"通常",
+ homeBtn:"ホーム",
+ linkGames:"ゲーム診断", linkLove:"恋愛診断",
+ footerFine:"MBTI / Myers-Briggs Type Indicator は登録商標に関わる枠組みです。本ページは公式検査ではなく、趣味選びの補助用チェックです。<br>結果は適性の断定ではありません。回答はサーバーへ送信しません。",
+ secHobbies:"適合度の高い候補", secHobbiesDesc:"今回の回答と傾向から算出した相対スコアです。絶対評価ではありません。",
+ secDims:"回答から見た傾向", secDimsDesc:"公式タイプ判定ではありません。今回答えた設問への偏りです。",
+ secPlan:"最初の検証手順",
+ secAvoid:"現時点では優先度が低い候補", secAvoidDesc:"不向きの断定ではなく、今の条件との距離が大きい項目です。",
+ secNext:"最初に検証するなら", secDiscovery:"既存の関心からの拡張", secTip:"継続のための留意点",
+ shareBtn:"結果をコピー", retryBtn:"条件を見直す",
+ note:"本結果は職業適性や医療的判断には使えません。<br>費用・場所・健康状態は、候補を選んだあとに別途確認してください。",
  footer:"MBTI 趣味診断",
- typePrefix:"あなたの趣味タイプ　",
- resultLead:(ie,ns,tf)=>`あなたは${ie}と相性がよさそう。さらに、${ns}、${tf}も趣味選びのポイントになりそうです。`,
- nextBody:"最初から本格的に始める必要はありません。「1回だけ試す」くらいで、自分に合うか確かめてみよう。",
- discNear:"今の趣味に近い方向", discFar:"少し違う方向",
- discNearD:"今の「好き」を残したまま、新鮮さを足す。",
- discFarD:"あえてジャンルをずらして、新しい楽しみ方を探す。",
- shareTitle:"MBTI 趣味診断",
- shareText:(type,title,hobbies)=>`MBTI趣味診断をやってみた！\n${type}\n${title}\nあなたに合いそうな趣味：${hobbies}\n`,
- copied:"結果をコピーしました！",
- titles:{INTJ:"静かな探究者",INTP:"自由な研究者",ENTJ:"挑戦する開拓者",ENTP:"新しい刺激のハンター",INFJ:"世界を深く味わう人",INFP:"感性で探すクリエイター",ENFJ:"人と楽しむプロデューサー",ENFP:"好奇心の冒険家",ISTJ:"コツコツ極める職人",ISFJ:"暮らしを楽しむ人",ESTJ:"行動派チャレンジャー",ESFJ:"みんなで楽しむ人",ISTP:"試して学ぶ実践派",ISFP:"マイペースな表現者",ESTP:"体験重視のアクティブ派",ESFP:"楽しさを広げるエンターテイナー"},
- intro:{I:"一人の時間を使って深く楽しめる趣味",E:"人や外の世界から刺激をもらえる趣味",N:"新しい発見や想像力を使える趣味",S:"実際に触ったり体験したりできる趣味",T:"上達・攻略・仕組みを楽しめる趣味",F:"感性・癒やし・人とのつながりを楽しめる趣味"},
- tags:{I:"ひとり時間",E:"人と楽しむ",N:"新しい発見",S:"体験重視",T:"上達・攻略",F:"癒やし・表現",J:"コツコツ型",P:"自由に試す"},
+ typePrefix:"MBTI　",
+ attrPrefix:"追加の属性　",
+ extraTime:["毎日すこしずつ","休日にまとめて","気が向いたときに"],
+ extraBarrier:["費用を抑える","難易度を抑える","場所を選ばない"],
+ extraNow:["近い方向で更新したい","別ジャンルを試したい","候補を広く見たい"],
+ resultLead:(ie,ns,tf)=>`MBTI傾向としては、${ie}と相性が出やすい結果です。追加属性では ${ns}、${tf} も趣味選びの条件になっています。`,
+ nextBody:"本格導入の前に、手元の道具だけで一回分だけ実施し、再実施したいかだけ記録してください。",
+ discNear:"既存関心に近い拡張", discFar:"条件をずらした対照",
+ discNearD:"今の習慣を維持したまま、負荷を増やしすぎない方向。",
+ discFarD:"同じ時間の使い方が固定化しているときの比較対象。",
+ shareTitle:"MBTI 趣味適性チェック",
+ shareText:(type,title,hobbies)=>`趣味適性チェックの結果\n${type}\n${title}\n候補：${hobbies}\n`,
+ copied:"結果をコピーしました",
+ titles:{INTJ:"構造を追う探究型",INTP:"仮説を試す分析型",ENTJ:"目標に落とす推進型",ENTP:"仮説を広げる探索型",INFJ:"意味を深める内省型",INFP:"価値に沿う表現型",ENFJ:"関係の中で進める調整型",ENFP:"関心を横断する探索型",ISTJ:"手順を積む実務型",ISFJ:"生活に定着させる維持型",ESTJ:"実行と管理を好む推進型",ESFJ:"共同で続ける対人型",ISTP:"操作して理解する実践型",ISFP:"感覚を形にする表現型",ESTP:"現場で確かめる行動型",ESFP:"場の反応を活かす対人型"},
+ intro:{I:"単独で集中を維持しやすい活動",E:"他者や外出から入力を得る活動",N:"概念・仮説・未知の整理が中心の活動",S:"身体・道具・現場で確認する活動",T:"上達、手順、仕組みの把握が報酬になる活動",F:"感覚、回復、関係性が報酬になる活動"},
+ tags:{I:"単独",E:"対人・外出",N:"概念・発見",S:"体験・操作",T:"習熟・構造",F:"感覚・関係",J:"計画的継続",P:"状況で選択"},
  tips:[
-  "最初から道具を揃えすぎない。まず無料・レンタル・体験版などで1回試して、ハマったら深掘りしよう。",
-  "「向いているか」より「もう一回やりたいか」で判断する。上達しなくても楽しいなら、それは十分いい趣味。",
-  "今の趣味を捨てなくてもいい。週1回だけ新しい趣味を混ぜると、マンネリ対策にもなる。",
-  "趣味に成果や収益まで求めなくてOK。誰にも見せない、自分だけの時間があってもいい。"
+  "初期投資を先に固定しない。無料・貸出・体験で一回分のコストと満足を測ってから道具を増やす。",
+  "適否は「上手いか」ではなく「次も時間を割くか」。一回目の出来は判断材料にしない。",
+  "既存の趣味を全置換しない。週あたり一枠だけ新候補に割り当て、負荷を観測する。",
+  "成果や収益を条件に入れると続きにくい。記録は「再実施したいか」の一行で足りる。"
  ],
  questions:[
   {q:"新しい趣味を始めるなら？",a:[["A","一人でじっくり楽しめるもの","自分のペースで深くハマりたい"],["B","誰かと一緒に楽しめるもの","人との時間も含めて楽しみたい"],["C","どちらでも。内容次第","面白そうならスタイルは気にしない"]]},
@@ -169,27 +236,48 @@ ja: {
   {q:"趣味に使う時間は？",a:[["A","毎日少しずつ","短時間でも積み上げたい"],["B","休日にまとめて","まとまった時間で楽しみたい"],["C","気が向いたとき","やりたいときにやりたい"]]},
   {q:"始める前に一番気になるのは？",a:[["A","費用","なるべく低コストで試したい"],["B","難しさ","初心者でもできるか気になる"],["C","場所・環境","家や近所でできるか気になる"]]},
   {q:"「楽しかった！」と感じる瞬間は？",a:[["A","自分の記録を更新したとき","昨日の自分より成長した"],["B","誰かと楽しい時間を過ごしたとき","一緒に楽しめた"],["C","知らないことを知ったとき","世界が少し広がった"]]},
-  {q:"今のあなたに近いのは？",a:[["A","今ある趣味に少しマンネリを感じる","似た方向で新しい刺激がほしい"],["B","今ある趣味とは違うことをしたい","未知のジャンルを試したい"],["C","そもそも趣味の候補が思いつかない","まずは選択肢をたくさん知りたい"]]}
+  {q:"今のあなたに近いのは？",a:[["A","今ある趣味に少しマンネリを感じる","似た方向で新しい刺激がほしい"],["B","今ある趣味とは違うことをしたい","未知のジャンルを試したい"],["C","そもそも趣味の候補が思いつかない","まずは選択肢をたくさん知りたい"]]},
+  {q:"新しいことを覚えるとき、先にやるのは？",a:[["A","解説や手順を読んでから動く","先に全体像がほしい"],["B","まず手を動かしてから考える","やってみないと分からない"],["C","詳しい人に聞く・一緒にやる","一人で抱え込みたくない"]]},
+  {q:"上達を追うなら、近いのは？",a:[["A","目標と期限を決める","到達点がはっきりしていたい"],["B","記録を残して変化を見る","数字やログで確認したい"],["C","気分が続く範囲でやる","義務にすると続かない"]]},
+  {q:"人と関わる割合は？",a:[["A","ほぼ一人で完結したい","他者は最小限でよい"],["B","時々だれかと共有したい","一人が基本、共有はたまに"],["C","人とやる前提がよい","一緒にいること自体が動機"]]},
+  {q:"うまくいかないときの対処は？",a:[["A","原因を分解して立て直す","仕組みとして捉えたい"],["B","一旦離れて回復してから戻る","無理に続けない"],["C","やり方を変えて別ルートを試す","同じやり方にこだわらない"]]},
+  {q:"主にどこでやりたい？",a:[["A","家や自分の場所","移動コストを上げたくない"],["B","外や施設","場が変わること自体が必要"],["C","どちらでも内容次第","場所は条件の一部でしかない"]]},
+  {q:"あとに残したいものは？",a:[["A","作品・記録・データ","形として残るものがほしい"],["B","体験そのもの","残らなくてもその時間が重要"],["C","誰かとの共有","一人の完了より伝達が残る"]]},
+  {q:"候補を選ぶとき、先に見るのは？",a:[["A","仕組みや上達の見通し","続けた先が見えるか"],["B","雰囲気や感覚の合い","最初の印象が重要"],["C","実用性や生活への定着","日常に載るか"]]},
+  {q:"続くための条件に近いのは？",a:[["A","予定に入っている","枠がないと後回しになる"],["B","道具がすぐ使える","準備が重いと途切れる"],["C","誰かとの約束がある","自分だけだと優先度が落ちる"]]}
  ]
 },
 en: {
- htmlLang:"en", title:"MBTI Hobby Finder | Ready for something new?",
- desc:"A free quiz that uses MBTI and your preferences to suggest new hobbies. No sign-up.",
- badge:"MBTI × Hobby Finder",
- h1:"Tired of your <span>usual hobbies?</span>",
- lead:"Feeling stuck in a rut?<br>Want to try something new?<br>We’ll suggest <strong>hobbies worth trying next</strong> from your MBTI and current mood.",
- heroNote:"You don’t have to replace your hobbies. Just add more options.",
- eyebrow:"NEW HOBBY FINDER", startTitle:"Find your next “I might try that”",
- startSub:"Answer 8 questions about how you like to spend time — alone, outdoors, making things, and more.<br>We’ll suggest 5 hobbies that fit not only your MBTI, but how you want to enjoy life right now.",
- flow1:"Answer 8 questions", flow2:"See your hobby type", flow3:"Get 5 ideas",
- b1t:"8 questions", b1d:"Quick quiz", b2t:"5 ideas", b2d:"Fresh options", b3t:"No sign-up", b3d:"Instant results",
- startBtn:"Find a new hobby →", quizEyebrow:"YOUR PREFERENCE", backBtn:"← Previous question",
- secHobbies:"Hobbies that may fit you", secHobbiesDesc:"Ranked from your MBTI leanings and this quiz — from classics to slightly unusual picks.",
+ htmlLang:"en", title:"MBTI Hobby Fit Check | Sort what you can sustain",
+ desc:"Eight questions on focus, reward, and time. Unofficial. No sign-up.",
+ badge:"Preference check",
+ h1:"Choose a hobby by <span>fit</span>",
+ lead:"Starting from mood alone often fails to last.<br>This check ranks <strong>candidates you are more likely to continue</strong> from how you focus, recover, and use time.",
+ heroNote:"You do not need to drop current hobbies. This is for prioritizing the next block of time.",
+ eyebrow:"HOBBY FIT CHECK", startTitle:"Map your constraints in 8 questions",
+ startSub:"The items record conditions, not a personality verdict.<br>You get five higher-fit options and a few to deprioritize for now.",
+ flow1:"Quick 8 / Full 16", flow2:"Review type and traits", flow3:"Compare options",
+ b1t:"Two lengths", b1d:"Quick or full", b2t:"5 options", b2d:"Ranked with traits", b3t:"Local only", b3d:"Nothing is sent",
+ startBtn:"Start the check →", quizEyebrow:"PREFERENCE", backBtn:"← Previous item",
+ quickBtn:"Short quiz", quickHint:"8 questions",
+ fullBtn:"Full quiz", fullHint:"16 questions",
+ modeQuick:"Short", modeFull:"Full",
+ homeBtn:"Home",
+ linkGames:"Game quiz", linkLove:"Love quiz",
+ footerFine:"MBTI / Myers-Briggs Type Indicator is a trademarked framework. This page is not an official instrument.<br>Results are not a diagnosis. Answers stay in the browser.",
+ secHobbies:"Higher-fit options", secHobbiesDesc:"Relative scores from this session — not an absolute ranking.",
+ secDims:"Leanings in this session", secDimsDesc:"Not an official type result. Only the bias in these eight answers.",
+ secPlan:"First verification",
+ secAvoid:"Lower priority for now", secAvoidDesc:"Not a verdict of mismatch — distance from current conditions.",
  secNext:"Start here", secDiscovery:"If you want to expand from what you already like", secTip:"How to keep going",
  shareBtn:"Share result", retryBtn:"Take the quiz again",
  note:"This quiz doesn’t declare the “right” hobby for you.<br>Treat it as a spark for new options.",
  footer:"MBTI Hobby Finder",
- typePrefix:"Your hobby type  ",
+ typePrefix:"MBTI  ",
+ attrPrefix:"Extra traits  ",
+ extraTime:["A little every day","A weekend block","When it fits"],
+ extraBarrier:["Keep cost low","Keep difficulty low","Keep setup simple"],
+ extraNow:["Refresh a similar direction","Try a different genre","See more options first"],
  resultLead:(ie,ns,tf)=>`You seem to click with ${ie}. ${ns} and ${tf} also look like useful clues when choosing a hobby.`,
  nextBody:"You don’t need to go all-in. Try it once and see if it feels like you.",
  discNear:"Close to what you already like", discFar:"A little different",
@@ -215,27 +303,48 @@ en: {
   {q:"How do you want to spend hobby time?",a:[["A","A little every day","Build it in short sessions"],["B","In a block on the weekend","Enjoy a longer stretch"],["C","Whenever I feel like it","Do it when I want to"]]},
   {q:"What worries you most before starting?",a:[["A","Cost","I want a low-cost trial"],["B","Difficulty","Can a beginner do this?"],["C","Place and setup","Can I do it at home or nearby?"]]},
   {q:"When do you think “that was fun!”?",a:[["A","When I beat my own record","I grew from yesterday"],["B","When I share a good time with someone","We enjoyed it together"],["C","When I learn something new","My world got a little bigger"]]},
-  {q:"Which is closest to you now?",a:[["A","My current hobbies feel a bit stale","I want a new spark in a similar direction"],["B","I want something different from what I already do","Try an unknown genre"],["C","I can’t even think of hobby options","I first want lots of ideas"]]}
+  {q:"Which is closest to you now?",a:[["A","My current hobbies feel a bit stale","I want a new spark in a similar direction"],["B","I want something different from what I already do","Try an unknown genre"],["C","I can’t even think of hobby options","I first want lots of ideas"]]},
+  {q:"When you learn something new, you first…",a:[["A","Read the steps","Want the map first"],["B","Start doing it","Only practice shows the shape"],["C","Ask someone","Prefer not to hold it alone"]]},
+  {q:"If you chase improvement, you prefer…",a:[["A","A goal and a deadline","A clear finish line"],["B","A log of change","Numbers and notes"],["C","Only while the mood holds","Duty kills it"]]},
+  {q:"How much other people?",a:[["A","Almost entirely solo","Others optional"],["B","Share sometimes","Solo base, occasional share"],["C","Built around people","Being together is the motive"]]},
+  {q:"When it goes badly, you…",a:[["A","Break down the cause","Treat it as a system"],["B","Step away, then return","Do not force it"],["C","Change the method","Same route is not required"]]},
+  {q:"Where do you want to do it?",a:[["A","Home or your own place","Keep travel cost low"],["B","Outside or a facility","Changing place matters"],["C","Either, depends on the activity","Place is only one condition"]]},
+  {q:"What should remain afterward?",a:[["A","A work, log, or data","Something durable"],["B","The experience itself","The hour is enough"],["C","Something shared","Transfer matters more than solo finish"]]},
+  {q:"When you pick an option, you look first at…",a:[["A","The system and a path to skill","Whether it has a future"],["B","Mood and feel","First impression"],["C","Use in daily life","Whether it sits in the week"]]},
+  {q:"What actually keeps it going?",a:[["A","It is on the calendar","No slot means later"],["B","Tools stay ready","Setup friction stops it"],["C","A promise with someone","Solo priority drops"]]}
  ]
 },
 zh: {
- htmlLang:"zh-CN", title:"MBTI 兴趣诊断 | 现在的爱好，会不会有点腻了？",
- desc:"免费诊断：根据 MBTI 和你的偏好，找出下一步想尝试的新兴趣。无需注册。",
- badge:"MBTI × 找兴趣",
- h1:"现在的爱好，<span>会不会有点腻？</span>",
- lead:"「最近好像有点倦怠」<br>「想开始点新的事情」<br>这时候，用 MBTI 和你的偏好，找出<strong>下一步想尝试的兴趣</strong>。",
- heroNote:"不必丢掉现在的爱好。先把选择变多。",
- eyebrow:"NEW HOBBY FINDER", startTitle:"找出下一个「有点想试试」",
- startSub:"用 8 道题整理你的偏好：想一个人享受、想出门、想动手做东西……<br>不只看 MBTI，也会根据当下心情和玩法，推荐 5 个更合拍的兴趣。",
- flow1:"回答 8 题", flow2:"查看兴趣类型", flow3:"看 5 个候选",
- b1t:"8 题", b1d:"快速诊断", b2t:"5 个候选", b2d:"发现新选择", b3t:"无需注册", b3d:"当场出结果",
- startBtn:"寻找新兴趣 →", quizEyebrow:"YOUR PREFERENCE", backBtn:"← 回到上一题",
+ htmlLang:"zh-CN", title:"MBTI 兴趣适性检查 | 整理更容易持续的兴趣",
+ desc:"用 8 题整理专注方式、回报类型和时间条件，给出相对更可持续的候选。非官方。",
+ badge:"条件整理",
+ h1:"按<span>适配</span>来选兴趣",
+ lead:"只凭心情开始，往往不容易持续。<br>本检查从独处或与人、体验或思考、积累或探索等条件，列出<strong>较容易继续的候选</strong>。",
+ heroNote:"不必放弃现有兴趣。这是在给下一段可投入时间排序。",
+ eyebrow:"HOBBY FIT CHECK", startTitle:"用 8 题整理时间条件",
+ startSub:"题目记录的是条件，不是性格判决。<br>会给出 5 个相对适配的选项，以及眼下可后置的项目。",
+ flow1:"简易 8 题 / 详细 16 题", flow2:"查看类型与属性", flow3:"比较候选",
+ b1t:"两种长度", b1d:"简易或详细", b2t:"5 个候选", b2d:"含属性排序", b3t:"不上传", b3d:"仅在浏览器内",
+ startBtn:"开始检查 →", quizEyebrow:"PREFERENCE", backBtn:"← 回到上一题",
+ quickBtn:"简易诊断", quickHint:"8 题看倾向",
+ fullBtn:"详细诊断", fullHint:"16 题看属性",
+ modeQuick:"简易", modeFull:"详细",
+ homeBtn:"首页",
+ linkGames:"游戏诊断", linkLove:"恋爱诊断",
+ footerFine:"MBTI 是 Myers-Briggs Type Indicator 的简称。本页不是官方测试，仅供娱乐。<br>结果并不定义你的性格。无需注册，回答不会发送到服务器。",
  secHobbies:"可能适合你的兴趣", secHobbiesDesc:"根据 MBTI 倾向和本次回答，从常见到稍冷门的兴趣，按契合度排列。",
+ secDims:"这次回答的倾向", secDimsDesc:"来自本次问答的快照，不是正式 MBTI 结果。",
+ secPlan:"先用 30 分钟试试",
+ secAvoid:"现在可以先放下的兴趣", secAvoidDesc:"不是不适合你，只是和现在的心情比较远。",
  secNext:"如果先试一个", secDiscovery:"想从现在的爱好往外扩", secTip:"坚持下去的小提示",
  shareBtn:"分享结果", retryBtn:"再测一次",
  note:"这份诊断并不是在断定「你适合什么兴趣」。<br>请把它当成发现新选择的契机来玩。",
  footer:"MBTI 兴趣诊断",
- typePrefix:"你的兴趣类型　",
+ typePrefix:"MBTI　",
+ attrPrefix:"附加属性　",
+ extraTime:["每天一点点","休息日集中","想做的时候"],
+ extraBarrier:["控制费用","降低难度","不挑场所"],
+ extraNow:["在相近方向更新","换一个类型","先看更多选项"],
  resultLead:(ie,ns,tf)=>`你似乎更契合${ie}。另外，${ns}、${tf} 也可能是选兴趣时的关键。`,
  nextBody:"不必一开始就很正式。先「只试一次」，确认它是否适合你。",
  discNear:"接近现在爱好的方向", discFar:"稍微不同的方向",
@@ -261,7 +370,15 @@ zh: {
   {q:"兴趣时间你想怎么用？",a:[["A","每天一点点","短时间也想慢慢累积"],["B","休息日一次做完","想用整段时间好好享受"],["C","想做的时候再做","想做就做"]]},
   {q:"开始前最在意的是？",a:[["A","费用","想尽量低成本先试"],["B","难度","在意新手能不能上手"],["C","地点和环境","在意家里或附近能不能做"]]},
   {q:"什么时候会觉得「好开心！」？",a:[["A","刷新了自己的记录","比昨天的自己进步了"],["B","和别人一起度过了快乐时光","一起玩得很开心"],["C","知道了以前不知道的事","世界稍微变大了一点"]]},
-  {q:"现在的你更接近哪一句？",a:[["A","对现有爱好有点倦怠","想在相近方向找新刺激"],["B","想做和现在不一样的事","想试试未知类型"],["C","根本想不出爱好选项","先想看很多选择"]]}
+  {q:"现在的你更接近哪一句？",a:[["A","对现有爱好有点倦怠","想在相近方向找新刺激"],["B","想做和现在不一样的事","想试试未知类型"],["C","根本想不出爱好选项","先想看很多选择"]]},
+  {q:"学新东西时，你会先？",a:[["A","先看说明和步骤","想先有整体图"],["B","先动手再想","不做不知道"],["C","问人或一起做","不想一个人扛"]]},
+  {q:"如果要进步，更接近？",a:[["A","定目标和期限","终点要清楚"],["B","做记录看变化","用数字或日志确认"],["C","情绪还在才做","一变成义务就停"]]},
+  {q:"和别人相关的比例？",a:[["A","几乎自己完成","别人可有可无"],["B","偶尔分享","以自己为主"],["C","最好和人一起","相处本身就是动力"]]},
+  {q:"不顺利时你会？",a:[["A","拆原因再调整","当机制看"],["B","先离开，恢复再回来","不硬撑"],["C","换方法另走一条","不必固守原路"]]},
+  {q:"主要想在哪里做？",a:[["A","家里或自己的空间","不想增加移动成本"],["B","外面或场地","换场本身有必要"],["C","都可以，看内容","地点只是条件之一"]]},
+  {q:"结束后想留下什么？",a:[["A","作品、记录、数据","希望有形的留下"],["B","体验本身","那一段时间就够"],["C","和别人的共享","传递比独自完成更重要"]]},
+  {q:"选候选时先看？",a:[["A","机制和进步空间","能否看到后续"],["B","氛围和感觉","第一印象重要"],["C","能不能嵌进生活","周常里放不放得下"]]},
+  {q:"真正能持续的条件更像？",a:[["A","已经写进日程","没框就会往后推"],["B","工具随时能用","准备一重就断"],["C","和别人有约定","只靠自己优先级会掉"]]}
  ]
 }
 };
@@ -473,17 +590,20 @@ const hobbies=[
  ["アクアリウム","自然・観察・創作",["I","S","F"]],
  ["家庭菜園","自然・実用・継続",["S","F","N"]],
  ["手帳・ノート術","整理・創作・継続",["I","J","S"]],
- ["パズル・数独","一人・攻略・低コスト",["I","T","N"]]
+ ["パズル・数独","一人・攻略・低コスト",["I","T","N"]],
+ ["歌・音楽鑑賞","表現・感覚・癒やし",["I","F"]],
+ ["旅行","外出・発見・体験",["E","N","S"]]
 ];
 
 const pairs={
- "読書":["美術館巡り","語学"],"写真散歩":["ハイキング","カフェ巡り"],"料理":["ガーデニング","DIY"],"ボードゲーム":["ゲーム","カフェ巡り"],"筋トレ":["ハイキング","楽器"],"ハイキング":["写真散歩","キャンプ"],"イラスト":["動画編集","美術館巡り"],"楽器":["歌・音楽鑑賞","ゲーム"],"語学":["旅行","読書"],"ガーデニング":["料理","写真散歩"],"動画編集":["写真散歩","イラスト"],"カフェ巡り":["写真散歩","読書"],"美術館巡り":["写真散歩","イラスト"],"キャンプ":["ハイキング","写真散歩"],"ゲーム":["ボードゲーム","動画編集"],"DIY":["料理","ガーデニング"]
+ "読書":["美術館巡り","語学"],"写真散歩":["ハイキング","カフェ巡り"],"料理":["ガーデニング","DIY"],"ボードゲーム":["ゲーム","カフェ巡り"],"筋トレ":["ハイキング","楽器"],"ハイキング":["写真散歩","キャンプ"],"イラスト":["動画編集","美術館巡り"],"楽器":["歌・音楽鑑賞","ゲーム"],"語学":["旅行","読書"],"ガーデニング":["料理","写真散歩"],"動画編集":["写真散歩","イラスト"],"カフェ巡り":["写真散歩","読書"],"美術館巡り":["写真散歩","イラスト"],"キャンプ":["ハイキング","写真散歩"],"ゲーム":["ボードゲーム","動画編集"],"DIY":["料理","ガーデニング"],
+ "陶芸":["レザークラフト","イラスト"],"書道・筆文字":["手帳・ノート術","イラスト"],"コーヒー・紅茶":["カフェ巡り","料理研究・食べ比べ"],"パン・お菓子作り":["料理","コーヒー・紅茶"],"釣り":["ハイキング","野鳥観察"],"野鳥観察":["写真散歩","星空観察"],"星空観察":["野鳥観察","鉱物・化石集め"],"鉱物・化石集め":["博物館巡り","星空観察"],"御朱印・寺社巡り":["地図・街歩き","カフェ巡り"],"博物館巡り":["美術館巡り","読書"],"美術・映画鑑賞":["美術館巡り","ブログ・エッセイ"],"映画制作・映像撮影":["動画編集","写真散歩"],"ブログ・エッセイ":["読書","手帳・ノート術"],"プログラミング":["電子工作","3Dモデリング"],"3Dモデリング":["プログラミング","イラスト"],"電子工作":["プログラミング","DIY"],"謎解き・脱出ゲーム":["パズル・数独","ボードゲーム"],"将棋・囲碁":["パズル・数独","カードゲーム"],"カードゲーム":["ボードゲーム","将棋・囲碁"],"模型・プラモデル":["レザークラフト","イラスト"],"レザークラフト":["DIY","編み物・刺繍"],"編み物・刺繍":["レザークラフト","ガーデニング"],"ダンス":["歌・音楽鑑賞","筋トレ"],"サイクリング":["ハイキング","地図・街歩き"],"地図・街歩き":["写真散歩","カフェ巡り"],"ボルダリング":["筋トレ","ハイキング"],"料理研究・食べ比べ":["料理","コーヒー・紅茶"],"香水・香り探究":["コーヒー・紅茶","美術・映画鑑賞"],"アクアリウム":["ガーデニング","家庭菜園"],"家庭菜園":["ガーデニング","料理"],"手帳・ノート術":["ブログ・エッセイ","書道・筆文字"],"パズル・数独":["将棋・囲碁","謎解き・脱出ゲーム"],"歌・音楽鑑賞":["楽器","ダンス"],"旅行":["語学","地図・街歩き"]
 };
 
-let lang = localStorage.getItem("hobbyLang") || "ja";
-let idx=0,score={A:0,B:0,C:0},trait={I:0,E:0,N:0,S:0,T:0,F:0},history=[],lastRanked=null,lastType=null;
+let lang = "ja";
+let idx=0,score={A:0,B:0,C:0},trait={I:0,E:0,N:0,S:0,T:0,F:0,J:0,P:0},history=[],lastRanked=null,lastAvoid=null,lastType=null;
 const $=id=>document.getElementById(id);
-const t=()=>I18N[lang];
+const t=()=>I18N[lang]||I18N.ja;
 const htxt=key=> (HOBBY_I18N[lang]&&HOBBY_I18N[lang][key]) || HOBBY_I18N.ja[key];
 
 function applyStaticI18n(){
@@ -498,32 +618,64 @@ function applyStaticI18n(){
 
 function setLang(next){
  lang=next;
- localStorage.setItem("hobbyLang",lang);
  applyStaticI18n();
  if(!$("quizCard").classList.contains("hidden")) showQuestion();
  if(!$("resultCard").classList.contains("hidden") && lastRanked) renderResultView();
 }
 
-function startQuiz(){
+function goHome(){
+ $("quizCard").classList.add("hidden");
+ $("resultCard").classList.add("hidden");
+ $("startCard").classList.remove("hidden");
+ idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0,J:0,P:0};history=[];lastRanked=null;lastAvoid=null;lastType=null;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+let qLen=8;
+function startQuiz(mode){
+ qLen=mode==="full"?16:8;
  $("startCard").classList.add("hidden");$("quizCard").classList.remove("hidden");
- idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0};history=[];lastRanked=null;
+ idx=0;score={A:0,B:0,C:0};trait={I:0,E:0,N:0,S:0,T:0,F:0,J:0,P:0};history=[];lastRanked=null;lastAvoid=null;
  showQuestion();window.scrollTo({top:0,behavior:"smooth"});
+}
+const QTRAIT=[
+ [{I:2},{E:2},{I:1,E:1}],
+ [{I:2},{E:2},{P:1,N:1}],
+ [{T:2},{F:2},{N:2}],
+ [{F:1,S:1},{S:2,E:1},{N:2,T:1}],
+ [{J:2},{J:1},{P:2}],
+ [{S:1},{F:1},{S:2}],
+ [{T:2},{E:2,F:1},{N:2}],
+ [{S:1},{N:2},{N:1,P:1}],
+ [{N:2,J:1},{S:2},{E:2,F:1}],
+ [{J:2,T:1},{T:1,J:1},{P:2,F:1}],
+ [{I:2},{I:1,E:1},{E:2,F:1}],
+ [{T:2},{F:2},{N:1,P:2}],
+ [{I:2},{E:2,S:1},{S:1,P:1}],
+ [{T:1,J:1},{S:1,F:1},{E:2,F:1}],
+ [{T:2,N:1},{F:2},{S:2,J:1}],
+ [{J:2},{S:1,P:1},{E:2,J:1}]
+];
+function applyTraits(n,sign){
+ const map=QTRAIT[idx][n];
+ Object.keys(map).forEach(k=>{
+  if(trait[k]==null)trait[k]=0;
+  trait[k]+=sign*map[k];
+ });
 }
 function showQuestion(){
  const x=t().questions[idx];
- $("count").textContent=`${idx+1} / ${t().questions.length}`;
- $("bar").style.width=(idx/t().questions.length*100)+"%";
+ $("count").textContent=`${idx+1} / ${qLen}`;
+ $("bar").style.width=((idx)/qLen*100)+"%";
  $("question").textContent=x.q;$("answers").innerHTML="";
+ $("backBtn").style.visibility=idx===0?"hidden":"visible";
  x.a.forEach((a,n)=>{const b=document.createElement("button");b.className="answer";b.innerHTML=`<b>${a[0]}　${a[1]}</b><small>${a[2]}</small>`;b.onclick=()=>answer(a[0],n);$("answers").appendChild(b)});
 }
 function answer(letter,n){
  score[letter]++;
- if(n===0){trait.I++;trait.N++;trait.T++}
- if(n===1){trait.E++;trait.S++;trait.F++}
- if(n===2){trait.N++;trait.F++}
- history.push({letter,n});
+ applyTraits(n,1);
+ history.push({letter,n,q:idx});
  idx++;
- if(idx<t().questions.length)showQuestion();else showResult();
+ if(idx<qLen)showQuestion();else showResult();
 }
 function goBack(){
  if(idx===0)return;
@@ -531,24 +683,31 @@ function goBack(){
  const last=history.pop();
  if(!last)return;
  score[last.letter]--;
- if(last.n===0){trait.I--;trait.N--;trait.T--}
- if(last.n===1){trait.E--;trait.S--;trait.F--}
- if(last.n===2){trait.N--;trait.F--}
+ const saved=idx;
+ idx=last.q;
+ applyTraits(last.n,-1);
+ idx=saved;
  showQuestion();
  window.scrollTo({top:0,behavior:"smooth"});
 }
 function showResult(){
  $("quizCard").classList.add("hidden");$("resultCard").classList.remove("hidden");
- const ie=trait.I>=trait.E?"I":"E",ns=trait.N>=trait.S?"N":"S",tf=trait.T>=trait.F?"T":"F",jp=score.A>=score.C?"J":"P";
+ $("bar").style.width="100%";
+ const ie=trait.I>=trait.E?"I":"E",ns=trait.N>=trait.S?"N":"S",tf=trait.T>=trait.F?"T":"F",jp=(trait.J||0)>=(trait.P||0)?"J":"P";
  lastType=ie+ns+tf+jp;
- lastRanked=hobbies.map((h,i)=>{
-  let s=50;
-  if(h[2].includes(ie))s+=13;if(h[2].includes(ns))s+=13;if(h[2].includes(tf))s+=11;
-  if(score.A>score.B&&h[1].includes("一人"))s+=7;
-  if(score.B>score.A&&h[1].includes("交流"))s+=7;
-  if(score.C>score.A&&h[1].includes("発見"))s+=7;
-  return {key:h[0],tags:h[1],s,i};
- }).sort((a,b)=>b.s-a.s || Math.random()-.5).slice(0,5);
+ const scored=hobbies.map((h,i)=>{
+  let s=48;
+  if(h[2].includes(ie))s+=14;if(h[2].includes(ns))s+=14;if(h[2].includes(tf))s+=12;
+  if(jp==="J"&&h[2].includes("J"))s+=6;
+  if(jp==="P"&&(h[1].includes("発見")||h[1].includes("交流")))s+=4;
+  if(score.A>score.B&&h[1].includes("一人"))s+=8;
+  if(score.B>score.A&&(h[1].includes("交流")||h[1].includes("外出")))s+=8;
+  if(score.C>=score.A&&h[1].includes("発見"))s+=7;
+  if(score.A>=3&&(h[1].includes("上達")||h[1].includes("継続")))s+=5;
+  return {key:h[0],tags:h[1],s,traits:h[2],i};
+ }).sort((a,b)=>b.s-a.s || a.i-b.i);
+ lastRanked=scored.slice(0,5);
+ lastAvoid=scored.slice(-3).reverse();
  renderResultView();
  window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -557,9 +716,19 @@ function renderResultView(){
  const type=lastType;
  const ie=type[0],ns=type[1],tf=type[2],jp=type[3];
  $("resultType").textContent=`${d.typePrefix}${type}`;
+ const qTime=history[4]?history[4].n:0;
+ const qBar=history[5]?history[5].n:0;
+ const qNow=history[7]?history[7].n:0;
+ const extras=[d.tags[ie],d.tags[ns],d.tags[tf],d.tags[jp],d.extraTime[qTime],d.extraBarrier[qBar],d.extraNow[qNow]];
+ $("resultAttrs").textContent=`${d.attrPrefix}${extras.join(" / ")}`;
  $("resultTitle").textContent=d.titles[type];
  $("resultText").textContent=d.resultLead(d.intro[ie],d.intro[ns],d.intro[tf]);
  $("tags").innerHTML=[d.tags[ie],d.tags[ns],d.tags[tf],d.tags[jp]].map(x=>`<span class="tag">${x}</span>`).join("");
+ const dimPair=(a,b)=>{
+  const va=trait[a]||0,vb=trait[b]||0,sum=Math.max(1,va+vb);
+  return `<div class="dim"><span>${d.tags[a]}</span><div class="dim-bar"><i style="width:${Math.round(va/sum*100)}%"></i></div><span>${d.tags[b]}</span></div>`;
+ };
+ $("dims").innerHTML=dimPair("I","E")+dimPair("N","S")+dimPair("T","F")+dimPair("J","P");
  $("hobbies").innerHTML=lastRanked.map((r,i)=>{
   const hx=htxt(r.key);
   return `<article class="hobby"><div class="hobby-head"><div><span class="rank">#${i+1}</span> <span class="hobby-name">${hx[0]}</span></div><span class="match">${Math.min(99,r.s)}%</span></div><div class="hobby-meta">${hx[1].split(/[・·]/).map(x=>x.trim()&&`<span class="mini">${x.trim()}</span>`).join("")}</div><p>${hx[2]}</p></article>`;
@@ -573,6 +742,18 @@ function renderResultView(){
   return `<div><b>${i===0?d.discNear:d.discFar} → ${name}</b><span>${i===0?d.discNearD:d.discFarD}</span></div>`;
  }).join("");
  $("tip").textContent=d.tips[(score.A*2+score.B*3+score.C)%d.tips.length];
+ const planBits=lang==="en"
+  ?["Block 30 minutes. Do only the smallest unit of the top option.","Use tools you already own. Do not buy first.","After one session, record only whether you would allocate time again."]
+  :lang==="zh"
+  ?["先空出 30 分钟，只做第 1 项里最小的一步。","只用现有工具，先不采购。","结束后只记录：是否愿意再投入同样的时间。"]
+  :["30分の枠を先に確保する。1位候補の最小単位だけ実施する。","新規購入はしない。手元の道具で一回分を完了する。","終了後、「同等の時間を再配分するか」だけ記録する。"];
+ $("plan").innerHTML=planBits.map(x=>`<li>${x}</li>`).join("");
+ if(lastAvoid){
+  $("avoid").innerHTML=lastAvoid.map(r=>{
+   const hx=htxt(r.key);
+   return `<div class="avoid-item"><b>${hx[0]}</b>${hx[2]}</div>`;
+  }).join("");
+ }
 }
 async function shareResult(){
  const d=t();
