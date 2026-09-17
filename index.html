@@ -199,7 +199,7 @@ ja: {
  startBtn:"新しい趣味を探す →", quizEyebrow:"MBTI + ATTRIBUTES", backBtn:"← ひとつ前の質問に戻る",
  quickBtn:"簡易診断", quickHint:"8問で傾向を見る",
  fullBtn:"詳細診断", fullHint:"16問で属性まで見る",
- modeQuick:"簡易", modeFull:"通常",
+ modeQuick:"簡易", modeFull:"詳細",
  homeBtn:"ホーム",
  linkGames:"ゲーム診断", linkLove:"恋愛診断",
  footerFine:"MBTI / Myers-Briggs Type Indicator は登録商標に関わる枠組みです。本ページは公式検査ではなく、趣味選びの補助用チェックです。<br>結果は適性の断定ではありません。回答はサーバーへ送信しません。",
@@ -208,7 +208,7 @@ ja: {
  secPlan:"最初の検証手順",
  secAvoid:"現時点では優先度が低い候補", secAvoidDesc:"不向きの断定ではなく、今の条件との距離が大きい項目です。",
  secNext:"最初に検証するなら", secDiscovery:"既存の関心からの拡張", secTip:"継続のための留意点",
- shareBtn:"結果をコピー", retryBtn:"条件を見直す",
+ shareBtn:"結果をシェア", retryBtn:"もう一度診断",
  note:"本結果は職業適性や医療的判断には使えません。<br>費用・場所・健康状態は、候補を選んだあとに別途確認してください。",
  footer:"MBTI 趣味診断",
  typePrefix:"MBTI　",
@@ -216,13 +216,13 @@ ja: {
  extraTime:["毎日すこしずつ","休日にまとめて","気が向いたときに"],
  extraBarrier:["費用を抑える","難易度を抑える","場所を選ばない"],
  extraNow:["近い方向で更新したい","別ジャンルを試したい","候補を広く見たい"],
- resultLead:(ie,ns,tf)=>`MBTI傾向としては、${ie}と相性が出やすい結果です。追加属性では ${ns}、${tf} も趣味選びの条件になっています。`,
- nextBody:"本格導入の前に、手元の道具だけで一回分だけ実施し、再実施したいかだけ記録してください。",
- discNear:"既存関心に近い拡張", discFar:"条件をずらした対照",
- discNearD:"今の習慣を維持したまま、負荷を増やしすぎない方向。",
- discFarD:"同じ時間の使い方が固定化しているときの比較対象。",
- shareTitle:"MBTI 趣味適性チェック",
- shareText:(type,title,hobbies)=>`趣味適性チェックの結果\n${type}\n${title}\n候補：${hobbies}\n`,
+ resultLead:(ie,ns,tf)=>`今回の寄りは「${ie}」「${ns}」「${tf}」。この3つを軸に、下の趣味候補を並べています。`,
+ nextBody:"今ある道具で1回だけ試して、「また時間を使いたいか」だけメモしよう。",
+ discNear:"近い方向", discFar:"少し違う方向",
+ discNearD:"今の好みは残して、負荷を増やしすぎない。",
+ discFarD:"ジャンルをずらして、別の楽しみ方を見る。",
+ shareTitle:"MBTI 趣味診断",
+ shareText:(type,title,hobbies)=>`MBTI趣味診断をやってみた\n${type}\n${title}\n合いそうな趣味：${hobbies}\n`,
  copied:"結果をコピーしました",
  titles:{INTJ:"構造を追う探究型",INTP:"仮説を試す分析型",ENTJ:"目標に落とす推進型",ENTP:"仮説を広げる探索型",INFJ:"意味を深める内省型",INFP:"価値に沿う表現型",ENFJ:"関係の中で進める調整型",ENFP:"関心を横断する探索型",ISTJ:"手順を積む実務型",ISFJ:"生活に定着させる維持型",ESTJ:"実行と管理を好む推進型",ESFJ:"共同で続ける対人型",ISTP:"操作して理解する実践型",ISFP:"感覚を形にする表現型",ESTP:"現場で確かめる行動型",ESFP:"場の反応を活かす対人型"},
  intro:{I:"単独で集中を維持しやすい活動",E:"他者や外出から入力を得る活動",N:"概念・仮説・未知の整理が中心の活動",S:"身体・道具・現場で確認する活動",T:"上達、手順、仕組みの把握が報酬になる活動",F:"感覚、回復、関係性が報酬になる活動"},
@@ -724,10 +724,9 @@ function renderResultView(){
  const qTime=history[4]?history[4].n:0;
  const qBar=history[5]?history[5].n:0;
  const qNow=history[7]?history[7].n:0;
- const extras=[d.tags[ie],d.tags[ns],d.tags[tf],d.tags[jp],d.extraTime[qTime],d.extraBarrier[qBar],d.extraNow[qNow]];
- $("resultAttrs").textContent=`${d.attrPrefix}${extras.join(" / ")}`;
  $("resultTitle").textContent=d.titles[type];
- $("resultText").textContent=d.resultLead(d.intro[ie],d.intro[ns],d.intro[tf]);
+ $("resultText").textContent=d.resultLead(d.tags[ie],d.tags[ns],d.tags[tf]);
+ $("resultAttrs").textContent=`${d.attrPrefix}${[d.extraTime[qTime],d.extraBarrier[qBar],d.extraNow[qNow]].join(" / ")}`;
  $("tags").innerHTML=[d.tags[ie],d.tags[ns],d.tags[tf],d.tags[jp]].map(x=>`<span class="tag">${x}</span>`).join("");
  const dimPair=(a,b)=>{
   const va=trait[a]||0,vb=trait[b]||0,sum=Math.max(1,va+vb);
@@ -740,7 +739,7 @@ function renderResultView(){
  }).join("");
  const topKey=lastRanked[0].key;
  const top=htxt(topKey);
- $("next").innerHTML=`<strong>${top[0]}</strong><p>${top[3]}。${d.nextBody}</p>`;
+ $("next").innerHTML=`<strong>${top[0]}</strong><p>${top[3]} ${d.nextBody}</p>`;
  const pair=pairs[topKey]||["写真散歩","読書"];
  $("discovery").innerHTML=pair.map((x,i)=>{
   const name=htxt(x)[0];
